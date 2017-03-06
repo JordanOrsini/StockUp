@@ -35,7 +35,7 @@ public class guiMain {
 	guiMain() {
 
 		// Basic window
-		window = new JFrame("Main Window");
+		window = new JFrame("Stock App");
 		window.setSize(699, 699);
 		window.getContentPane().setBackground(Color.GRAY);
 		window.getContentPane().setLayout(null);
