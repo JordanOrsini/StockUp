@@ -36,7 +36,7 @@ public class guiMain {
 
 		// Basic window
 		window = new JFrame("Main Window");
-		window.setSize(700, 450);
+		window.setSize(699, 699);
 		window.getContentPane().setBackground(Color.GRAY);
 		window.getContentPane().setLayout(null);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,14 +46,14 @@ public class guiMain {
 		search = new JTextField();
 		search.setColumns(15);
 		search.setSize(search.getPreferredSize());
-		search.setLocation(20,330);
+		search.setLocation(418,11);
 		search.setToolTipText("Enter stock");
 		window.getContentPane().add(search);
 		
 		//Search button
 		searchBut = new JButton("Search");
 		searchBut.setSize(searchBut.getPreferredSize());
-		searchBut.setLocation(115, 355);
+		searchBut.setLocation(603, 10);
 		searchBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
@@ -76,7 +76,7 @@ public class guiMain {
 		
 		//Have another JTabbedPane the main one will encap the one below
 		JTabbedPane main = new JTabbedPane(JTabbedPane.TOP);
-		main.setBounds(215, 30, 460, 350);
+		main.setBounds(20, 52, 653, 607);
 		window.getContentPane().add(main);
 		
 		JPanel main1 = new JPanel();
@@ -93,12 +93,12 @@ public class guiMain {
 		JLabel label = new JLabel("");
 		Image image = new ImageIcon(this.getClass().getResource("/img.jpg")).getImage();
 		label.setIcon(new ImageIcon(image));
-		label.setBounds(97, 11, 262, 300);
+		label.setBounds(189, 127, 262, 300);
 		main3.add(label);
 		
 		// Tabs
 		JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP);
-		tabs.setBounds(10, 5, 435,310 );
+		tabs.setBounds(10, 0, 628,568 );
 		main1.add(tabs);
 
 		JPanel tab1 = new JPanel();
@@ -119,7 +119,7 @@ public class guiMain {
 		comboBox.addItem("Amazon");
 		comboBox.addItem("Microsoft");
 		comboBox.addItem("Google");
-		comboBox.setBounds(50, 60, 108, 20);
+		comboBox.setBounds(20, 11, 108, 20);
 		window.getContentPane().add(comboBox);
 
 		window.setResizable(false);
