@@ -91,8 +91,9 @@ public class guiMain {
 		main.addTab("DevTeam", null, main3, null);
 		main3.setLayout(null);
 		JLabel label = new JLabel("");
-		Image image = new ImageIcon(this.getClass().getResource("/img.jpg")).getImage();
-		label.setIcon(new ImageIcon(image));
+		// Image image = new
+		// ImageIcon(this.getClass().getResource("/img.jpg")).getImage();
+		// label.setIcon(new ImageIcon(image));
 		label.setBounds(189, 127, 262, 300);
 		main3.add(label);
 		
@@ -114,7 +115,7 @@ public class guiMain {
 		userName.setSize(userName.getPreferredSize());
 		tab2.add(userName);
 		
-		JComboBox<String> comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.addItem("Apple");
 		comboBox.addItem("Amazon");
 		comboBox.addItem("Microsoft");
