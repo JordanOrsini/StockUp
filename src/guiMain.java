@@ -3,6 +3,9 @@ import java.awt.Color;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,7 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 public class guiMain {
-
+	
 	JFrame window;
 	JLabel userName;
 	JTextField search;
@@ -23,8 +26,9 @@ public class guiMain {
 	JButton graphButton;
 	Graph g = new Graph();
 
-	guiMain() {
-
+	guiMain() throws NumberFormatException, IOException, ParseException {
+	     
+		
 		// Basic window
 		window = new JFrame("Main Window");
 		window.setSize(699, 699);
@@ -95,17 +99,17 @@ public class guiMain {
 		insideTab1.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		insideTab1.setBounds(0, 0, 619, 496);
 		
-		 Graph gPanel = new Graph(g.createAndShowGui(0));
-		 System.out.println(g.createAndShowGui(0)); 
+		 Graph gPanel = new Graph(g.createAndShowGui(0,0));
+		 System.out.println(g.createAndShowGui(0,0)); 
 		 gPanel.setBounds(10, 20,600, 450);
 		 insideTab1.add(window.getContentPane().add(gPanel));
 		 
 		
 		JComboBox<Integer> days = new JComboBox();
-		days.addItem(5);
-		days.addItem(10);
+		days.addItem(20);
 		days.addItem(50);
 		days.addItem(100);
+		days.addItem(200);
 		days.setBounds(168, 501, 108, 20);
 		tab1.add(days);
 		
@@ -117,9 +121,39 @@ public class guiMain {
 		graphButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				int day = (int) days.getSelectedItem();
-				Graph gPanel = new Graph(g.createAndShowGui(day));
-				System.out.println(g.createAndShowGui(day));
+				Main readFromFile = null;
+				try {
+					readFromFile = new Main();
+				} catch (NumberFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			    ArrayList<Double> closeArray = new ArrayList<Double>();
+			    closeArray = readFromFile.GetCloseArray();
+				
+			    //int day;
+				 int mvd = (int) days.getSelectedItem();
+				 int range = closeArray.size();
+				 
+				Graph gPanel = null;
+				try {
+					gPanel = new Graph(g.createAndShowGui(range, mvd));
+				} catch (NumberFormatException | IOException | ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					System.out.println(g.createAndShowGui(mvd,mvd));
+				} catch (NumberFormatException | IOException | ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				gPanel.setBounds(10, 20, 600, 450);
 				insideTab1.add(window.getContentPane().add(gPanel));
 				
@@ -160,9 +194,10 @@ public class guiMain {
 
 
 	// Main method
-	public static void main(String[] args) { // TODO Auto-generated
+	public static void main(String[] args) throws NumberFormatException, IOException, ParseException { // TODO Auto-generated
 
 		new guiMain();
 
 	}
+	
 }

@@ -8,7 +8,10 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import javax.swing.JFrame;
@@ -163,26 +166,72 @@ public class Graph extends JPanel {
     
     
    //  Graph() {
-   static List<Double> createAndShowGui(int x) {
+   static List<Double> createAndShowGui(int x, int mvd) throws NumberFormatException, IOException, ParseException {
         Random random = new Random();
         List<Double> scores = new ArrayList<>();
         
-    	double[] average = new double[x];
+    	/*double[] average = new double[x];
     	 for (int i = 0; i < x; i++) {
     		 average[i] = (double)(Math.random()*x);
-    	 }
+    	 }*/
         
         int maxDataPoints = x;// NOTE: this is where we will set the total days
 
-
+        Main readFromFile = new Main();
+        ArrayList<Double> closeArray = new ArrayList<Double>();
+        closeArray = readFromFile.GetCloseArray();
+        
+        ArrayList<Double> closeValues = new ArrayList<Double>();
+    	ArrayList<Date> dayValues = new ArrayList<Date>();
+    	ArrayList<Double> averageValues = new ArrayList<Double>();
+    	closeValues = readFromFile.GetCloseArray();
+    	dayValues = readFromFile.GetDateArray();
+    	
+    	for(int x2 = 0; x2 < closeValues.size(); x2++)
+    	{
+    		averageValues.add((double) 0);
+    	}
+    	
+    	
+    	
+    	//should be days in the gui
+    	//int mvd = 20;
+    	double total = 0;
+    	int u = 0;
+    	
+    	for(int y = 0; y < closeValues.size(); y++)
+    	{
+    		//total = 0;
+    		if(y+1 >= mvd)
+    		{
+    			total = 0;
+    			u = y;
+    			for(int z = mvd; z > 0 ; z--)
+    			{
+    				total = total + closeValues.get(u);
+    				//System.out.println(z + " " + total);
+    				u--;
+    			}
+    			averageValues.add(y, (double)total/mvd);
+    		}
+    	}
         for (int i = 0; i < maxDataPoints; i++) {
         	//NOTE: if we have them in chronological order, array[i]
             //scores.add((double) random.nextDouble() * maxScore);
             //scores.add((double) i);
-            scores.add(average[i]);
+        	
+        	
+        	
+        	
+        	 scores.add(averageValues.get(i));
+        	
+        	
+        	
+           // scores.add(closeArray.get(i));
       
         }
      
+        
         return scores;
     }
     /*

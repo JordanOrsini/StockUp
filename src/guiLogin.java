@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -109,7 +110,12 @@ public class guiLogin {
 				if (userList.contains(user) && passList.contains(pass)) {
 					JOptionPane.showMessageDialog(window, "Success");
 					window.dispose();
-					guiMain main = new guiMain();
+					try {
+						guiMain main = new guiMain();
+					} catch (NumberFormatException | IOException | ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				} else {
 					JOptionPane.showMessageDialog(window, "No");
 				}
