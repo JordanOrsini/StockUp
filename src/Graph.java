@@ -176,6 +176,8 @@ public class Graph extends JPanel {
     	 }*/
         
         int maxDataPoints = x;// NOTE: this is where we will set the total days
+        
+        
 
         Main readFromFile = new Main();
         ArrayList<Double> closeArray = new ArrayList<Double>();
@@ -186,6 +188,10 @@ public class Graph extends JPanel {
     	ArrayList<Double> averageValues = new ArrayList<Double>();
     	closeValues = readFromFile.GetCloseArray();
     	dayValues = readFromFile.GetDateArray();
+    	
+    	int startingGraphIndex = closeValues.size() - x;
+    	
+    	
     	
     	for(int x2 = 0; x2 < closeValues.size(); x2++)
     	{
@@ -215,20 +221,20 @@ public class Graph extends JPanel {
     			averageValues.add(y, (double)total/mvd);
     		}
     	}
-        for (int i = 0; i < maxDataPoints; i++) {
+        
+    	/*for (int i = 0; i < maxDataPoints; i++) 
+        {
         	//NOTE: if we have them in chronological order, array[i]
             //scores.add((double) random.nextDouble() * maxScore);
             //scores.add((double) i);
-        	
-        	
-        	
-        	
         	 scores.add(averageValues.get(i));
-        	
-        	
-        	
            // scores.add(closeArray.get(i));
-      
+        }*/
+        
+        //trying to fix range
+        for(int i = startingGraphIndex; i < closeValues.size(); i++)
+        {
+        	scores.add(averageValues.get(i));
         }
      
         
