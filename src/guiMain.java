@@ -110,13 +110,20 @@ public class guiMain {
 		days.addItem(50);
 		days.addItem(100);
 		days.addItem(200);
-		days.setBounds(168, 501, 108, 20);
+		days.setBounds(115, 501, 108, 20);
 		tab1.add(days);
 		
+		JComboBox<String> rangeBox = new JComboBox();
+		rangeBox.addItem("All");
+		rangeBox.addItem("Past year");
+		rangeBox.addItem("Past 2 years");
+		rangeBox.addItem("Past 5 years");
+		rangeBox.setBounds(0, 501, 108, 20);
+		tab1.add(rangeBox);
 		
 		graphButton = new JButton("Generate graph");
 		graphButton.setSize(graphButton.getPreferredSize());
-		graphButton.setLocation(364, 500);
+		graphButton.setLocation(470, 495);
 
 		graphButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -139,7 +146,27 @@ public class guiMain {
 				
 			    //int day;
 				 int mvd = (int) days.getSelectedItem();
-				 int range = closeArray.size();
+				 
+				 String rangeSelection = (String)rangeBox.getSelectedItem();
+				 
+				 int range = 0;
+				
+				 if(rangeSelection.equals("All"))
+				 {
+					 range = closeArray.size();
+				 }
+				 if(rangeSelection.equals("Past year"))
+				 {
+					 range = 365;
+				 }
+				 if(rangeSelection.equals("Past 2 years"))
+				 {
+					 range = 730;
+				 }
+				 if(rangeSelection.equals("Past 5 years"))
+				 {
+					 range = 1825;
+				 }
 				 
 				Graph gPanel = null;
 				try {
