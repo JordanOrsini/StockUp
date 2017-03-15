@@ -82,6 +82,35 @@ public class guiMain {
 		search.setSize(search.getPreferredSize());
 		search.setLocation(418, 11);
 		search.setToolTipText("Enter stock");
+		search.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				String user = search.getText();
+
+				// ignore case
+				if (user.equalsIgnoreCase("Apple")) 
+				{
+					JOptionPane.showMessageDialog(window, "Stock found!");
+				} 
+				else if (user.equalsIgnoreCase("Amazon")) 
+				{
+					JOptionPane.showMessageDialog(window, "Stock found!");
+				} 
+				else if (user.equalsIgnoreCase("Microsoft")) 
+				{
+					JOptionPane.showMessageDialog(window, "Stock found!");
+				} 
+				else if (user.equalsIgnoreCase("Google")) 
+				{
+					JOptionPane.showMessageDialog(window, "Stock found!");
+				} 
+				else 
+				{
+					JOptionPane.showMessageDialog(window, "Invalid stock!");
+				}
+
+			}
+		});
 		window.getContentPane().add(search);
 
 		// Search button
@@ -131,7 +160,7 @@ public class guiMain {
 		main2.setLayout(null);
 
 		JPanel main1 = new JPanel();
-		main.addTab("Graphs", null, main1, null);
+		main.addTab("Stock Data", null, main1, null);
 		main1.setLayout(null);
 
 		JPanel main3 = new JPanel();
@@ -150,7 +179,7 @@ public class guiMain {
 		tabs.addTab("Current", null, tab1, null);
 		JPanel insideTab1 = new JPanel();
 
-		insideTab1.setBorder(new TitledBorder(null, "Data", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		insideTab1.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		insideTab1.setBounds(0, 0, 619, 496);
 		
 		 Graph gPanel = new Graph(g.createAndShowGui(0,0, closeArray, dateArray));

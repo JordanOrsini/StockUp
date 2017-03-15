@@ -8,8 +8,11 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.io.IOException;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -39,6 +42,7 @@ public class Graph extends JPanel {
     private int pointWidth = 4;
     private int numberYDivisions = 10;
     private List<Double> scores;
+    public static ArrayList<Date> dates = new ArrayList<Date>();
    
 
     public Graph(List<Double> scores) {
@@ -71,6 +75,9 @@ public class Graph extends JPanel {
         g2.setColor(Color.WHITE);
         g2.fillRect(padding + labelPadding, padding, getWidth() - (2 * padding) - labelPadding, getHeight() - 2 * padding - labelPadding);
         g2.setColor(Color.BLACK);
+        
+        DecimalFormat df = new DecimalFormat(".#");
+        df.setRoundingMode(RoundingMode.CEILING);
 
         // create hatch marks and grid lines for y axis.
         for (int i = 0; i < numberYDivisions + 1; i++) {
@@ -82,16 +89,18 @@ public class Graph extends JPanel {
                 g2.setColor(gridColor);
                 g2.drawLine(padding + labelPadding + 1 + pointWidth, y0, getWidth() - padding, y1);
                 g2.setColor(Color.BLACK);
-                String yLabel = ((int) ((getMinScore() + (getMaxScore() - getMinScore()) * ((i * 1.0) / numberYDivisions)) * 100)) / 100.0 + "";
+                Double yLabel = ((int) ((getMinScore() + (getMaxScore() - getMinScore()) * ((i * 1.0) / numberYDivisions)) * 100)) / 100.0;
                 FontMetrics metrics = g2.getFontMetrics();
-                int labelWidth = metrics.stringWidth(yLabel);
-                g2.drawString(yLabel, x0 - labelWidth - 5, y0 + (metrics.getHeight() / 2) - 3);
+                int labelWidth = metrics.stringWidth(df.format(yLabel));
+                g2.drawString("$"+ df.format(yLabel), x0 - labelWidth - 15, y0 + (metrics.getHeight() / 2) - 3);
             }
             g2.drawLine(x0, y0, x1, y1);
         }
 
         //ADDED
         int division = 10;
+        
+        Calendar cal = Calendar.getInstance();
         
         // and for x axis
         for (int i = 0; i < scores.size(); i++) {
@@ -102,7 +111,7 @@ public class Graph extends JPanel {
                 int y1 = y0 - pointWidth;
                 //REPLACED
                 //if ((i % ((int) ((scores.size() / 20.0)) + 1)) == 0) {
-                if ((i % (((scores.size() / 10)) + 1)) == 0) {
+                if ((i % (((scores.size() / division)) + 1)) == 0) {
                     g2.setColor(gridColor);
                     g2.drawLine(x0, getHeight() - padding - labelPadding - 1 - pointWidth, x1, padding);
                     g2.setColor(Color.BLACK);
@@ -110,7 +119,9 @@ public class Graph extends JPanel {
                     String xLabel = i+1 + "";
                     FontMetrics metrics = g2.getFontMetrics();
                     int labelWidth = metrics.stringWidth(xLabel);
-                    g2.drawString(xLabel, x0 - labelWidth / 2, y0 + metrics.getHeight() + 3);
+                    cal.setTime(dates.get(i));
+                    //System.out.println(dates.get(i));
+                    g2.drawString(/*xLabel*/ /*Integer.toString(cal.get(Calendar.MONTH + 1)) + "/" + */Integer.toString(cal.get(Calendar.YEAR)), x0 - labelWidth / 2, y0 + metrics.getHeight() + 3);
                     //SWITCHED PART1
                     g2.drawLine(x0, y0, x1, y1);
                 }
@@ -249,17 +260,19 @@ public class Graph extends JPanel {
         	 scores.add(averageValues.get(i));
            // scores.add(closeArray.get(i));
         }*/
-        
+        dates.clear();
         //trying to fix range
         for(int i = startingGraphIndex; i < closeValues.size(); i++)
         {
         	if(mvd != 0)
         	{
         		scores.add(averageValues.get(i));
+        		dates.add(dateValues.get(i));
         	}
         	else
         	{
         		scores.add(closeValues.get(i));
+        		dates.add(dateValues.get(i));
         	}
         }
      

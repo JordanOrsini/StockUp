@@ -53,6 +53,94 @@ public class guiLogin {
 		userField.setSize(userField.getPreferredSize());
 		userField.setLocation(180, 60);
 		userField.setToolTipText("Enter username");
+		userField.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				String user = userField.getText();
+				String pass = passField.getText();
+				
+				//check var user with text file user( same for pass)
+				String filename = "user.txt";
+				String filename2 = "pass.txt";
+				ArrayList<String> userList = new ArrayList<String>();
+				ArrayList<String> passList = new ArrayList<String>();
+				
+				FileReader file;
+				FileReader file2;
+				try {
+					file = new FileReader(filename);
+					file2 = new FileReader(filename2);
+					BufferedReader buff = new BufferedReader(file);
+					BufferedReader buff2 = new BufferedReader(file2);
+					
+					String line = null;
+					String line2 = null;
+
+					while (((line = buff.readLine()) != null)) 
+					{
+						userList.add(line);	
+					}
+					while((line2 = buff2.readLine()) != null)
+					{
+						passList.add(line2);
+					}
+					
+					buff.close();
+					buff2.close();
+					System.out.println(userList);
+					System.out.println(passList);
+
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				boolean userPassFound = false;
+				//NEW LOG IN makes sure the user name corresponds to the password and not just is in the list
+				for(int y = 0; y < userList.size(); y++)
+				{
+					if(userList.get(y).equals(user) && passList.get(y).equals(pass))
+					{
+						userPassFound = true;
+						JOptionPane.showMessageDialog(window, "Welcome " + user + "!");
+						window.dispose();
+						try 
+						{
+							guiMain main = new guiMain();
+						} 
+						catch (NumberFormatException | IOException | ParseException e) 
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				if(userPassFound == false)
+				{
+					JOptionPane.showMessageDialog(window, "Invalid login credentials!");
+				}
+				
+				//OLD LOG IN
+				/*if (userList.contains(user) && passList.contains(pass)) 
+				{
+					JOptionPane.showMessageDialog(window, "Welcome!");
+					window.dispose();
+					try {
+						guiMain main = new guiMain();
+					} catch (NumberFormatException | IOException | ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} 
+				else 
+				{
+					JOptionPane.showMessageDialog(window, "Invalid login credentials!");
+				}*/
+
+			}
+		});
 		window.add(userField);
 
 		passField = new JPasswordField();
@@ -60,13 +148,102 @@ public class guiLogin {
 		passField.setSize(passField.getPreferredSize());
 		passField.setLocation(180, 100);
 		passField.setToolTipText("Password");
+		passField.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				String user = userField.getText();
+				String pass = passField.getText();
+				
+				//check var user with text file user( same for pass)
+				String filename = "user.txt";
+				String filename2 = "pass.txt";
+				ArrayList<String> userList = new ArrayList<String>();
+				ArrayList<String> passList = new ArrayList<String>();
+				
+				FileReader file;
+				FileReader file2;
+				try {
+					file = new FileReader(filename);
+					file2 = new FileReader(filename2);
+					BufferedReader buff = new BufferedReader(file);
+					BufferedReader buff2 = new BufferedReader(file2);
+					
+					String line = null;
+					String line2 = null;
+
+					while (((line = buff.readLine()) != null)) 
+					{
+						userList.add(line);	
+					}
+					while((line2 = buff2.readLine()) != null)
+					{
+						passList.add(line2);
+					}
+					
+					buff.close();
+					buff2.close();
+					System.out.println(userList);
+					System.out.println(passList);
+
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				boolean userPassFound = false;
+				//NEW LOG IN makes sure the user name corresponds to the password and not just is in the list
+				for(int y = 0; y < userList.size(); y++)
+				{
+					if(userList.get(y).equals(user) && passList.get(y).equals(pass))
+					{
+						userPassFound = true;
+						JOptionPane.showMessageDialog(window, "Welcome " + user + "!");
+						window.dispose();
+						try 
+						{
+							guiMain main = new guiMain();
+						} 
+						catch (NumberFormatException | IOException | ParseException e) 
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				if(userPassFound == false)
+				{
+					JOptionPane.showMessageDialog(window, "Invalid login credentials!");
+				}
+				
+				//OLD LOG IN
+				/*if (userList.contains(user) && passList.contains(pass)) 
+				{
+					JOptionPane.showMessageDialog(window, "Welcome!");
+					window.dispose();
+					try {
+						guiMain main = new guiMain();
+					} catch (NumberFormatException | IOException | ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} 
+				else 
+				{
+					JOptionPane.showMessageDialog(window, "Invalid login credentials!");
+				}*/
+
+			}
+		});
 		window.add(passField);
 
 		// Button
 		loginButton = new JButton("Login");
 		loginButton.setSize(loginButton.getPreferredSize());
 		loginButton.setLocation(230, 140);
-		loginButton.addActionListener(new ActionListener() {
+		loginButton.addActionListener(new ActionListener() 
+		{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				String user = userField.getText();
