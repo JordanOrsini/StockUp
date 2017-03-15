@@ -91,6 +91,9 @@ public class Graph extends JPanel {
             g2.drawLine(x0, y0, x1, y1);
         }
 
+        //ADDED
+        int division = 10;
+        
         // and for x axis
         for (int i = 0; i < scores.size(); i++) {
             if (scores.size() > 1) {
@@ -98,7 +101,9 @@ public class Graph extends JPanel {
                 int x1 = x0;
                 int y0 = getHeight() - padding - labelPadding;
                 int y1 = y0 - pointWidth;
-                if ((i % ((int) ((scores.size() / 20.0)) + 1)) == 0) {
+                //REPLACED
+                //if ((i % ((int) ((scores.size() / 20.0)) + 1)) == 0) {
+                if ((i % (((scores.size() / 10)) + 1)) == 0) {
                     g2.setColor(gridColor);
                     g2.drawLine(x0, getHeight() - padding - labelPadding - 1 - pointWidth, x1, padding);
                     g2.setColor(Color.BLACK);
@@ -107,8 +112,11 @@ public class Graph extends JPanel {
                     FontMetrics metrics = g2.getFontMetrics();
                     int labelWidth = metrics.stringWidth(xLabel);
                     g2.drawString(xLabel, x0 - labelWidth / 2, y0 + metrics.getHeight() + 3);
+                    //SWITCHED PART1
+                    g2.drawLine(x0, y0, x1, y1);
                 }
-                g2.drawLine(x0, y0, x1, y1);
+                //SWITCHED PART2
+                //g2.drawLine(x0, y0, x1, y1);
             }
         }
 
