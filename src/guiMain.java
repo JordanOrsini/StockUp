@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -157,6 +158,19 @@ public class guiMain {
 
 		JPanel main2 = new JPanel();
 		main.addTab("Home", null, main2, null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 11, 628, 557);
+		JLabel label1 = new JLabel();
+		String path = "img/img.jpg";
+		ImageIcon img = new ImageIcon(path);
+
+		label1.setIcon(img);
+		label1.setBounds(10,10,50,50);
+		panel.add(label1);
+		
+		
+		main2.add(panel);
 		main2.setLayout(null);
 
 		JPanel main1 = new JPanel();
