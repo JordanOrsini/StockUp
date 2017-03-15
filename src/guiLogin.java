@@ -87,8 +87,8 @@ public class guiLogin {
 					
 					buff.close();
 					buff2.close();
-					System.out.println(userList);
-					System.out.println(passList);
+					//System.out.println(userList);
+					//System.out.println(passList);
 
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
@@ -182,8 +182,8 @@ public class guiLogin {
 					
 					buff.close();
 					buff2.close();
-					System.out.println(userList);
-					System.out.println(passList);
+					//System.out.println(userList);
+					//System.out.println(passList);
 
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
@@ -277,8 +277,8 @@ public class guiLogin {
 					
 					buff.close();
 					buff2.close();
-					System.out.println(userList);
-					System.out.println(passList);
+					//System.out.println(userList);
+					//System.out.println(passList);
 
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block

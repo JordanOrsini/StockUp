@@ -98,7 +98,7 @@ public class Graph extends JPanel {
         }
 
         //ADDED
-        int division = 10;
+        int division = 7;
         
         Calendar cal = Calendar.getInstance();
         
@@ -121,7 +121,12 @@ public class Graph extends JPanel {
                     int labelWidth = metrics.stringWidth(xLabel);
                     cal.setTime(dates.get(i));
                     //System.out.println(dates.get(i));
-                    g2.drawString(/*xLabel*/ /*Integer.toString(cal.get(Calendar.MONTH + 1)) + "/" + */Integer.toString(cal.get(Calendar.YEAR)), x0 - labelWidth / 2, y0 + metrics.getHeight() + 3);
+                    String myMonth = Integer.toString(cal.get(Calendar.MONTH + 1));
+                    if(myMonth.length() == 1)
+                    {
+                    	myMonth = "0" + myMonth;
+                    }
+                    g2.drawString(/*xLabel*/ myMonth + "/" + Integer.toString(cal.get(Calendar.YEAR)), x0 - labelWidth / 2, y0 + metrics.getHeight() + 3);
                     //SWITCHED PART1
                     g2.drawLine(x0, y0, x1, y1);
                 }
