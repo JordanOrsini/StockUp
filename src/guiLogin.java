@@ -31,15 +31,15 @@ public class guiLogin {
 	guiLogin() {
 
 		// Basic window
-		window = new JFrame("Login Page");
+		window = new JFrame("PROFITS R' US LOGIN");
 		window.setSize(500, 250);
 		window.getContentPane().setBackground(Color.GRAY);
 		window.setLayout(null);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Labels
-		userName = new JLabel("Enter username");
-		passWord = new JLabel("Enter password");
+		userName = new JLabel("Username:");
+		passWord = new JLabel("Password:");
 		userName.setLocation(80, 60);
 		passWord.setLocation(80, 100);
 		userName.setSize(userName.getPreferredSize());
@@ -75,8 +75,8 @@ public class guiLogin {
 				//check var user with text file user( same for pass)
 				String filename = "user.txt";
 				String filename2 = "pass.txt";
-				List<String> userList = new ArrayList<String>();
-				List<String> passList = new ArrayList<String>();
+				ArrayList<String> userList = new ArrayList<String>();
+				ArrayList<String> passList = new ArrayList<String>();
 				
 				FileReader file;
 				FileReader file2;
@@ -89,8 +89,12 @@ public class guiLogin {
 					String line = null;
 					String line2 = null;
 
-					while (((line = buff.readLine()) != null) || ((line2 = buff2.readLine()) != null)) {
-						userList.add(line);
+					while (((line = buff.readLine()) != null)) 
+					{
+						userList.add(line);	
+					}
+					while((line2 = buff2.readLine()) != null)
+					{
 						passList.add(line2);
 					}
 					
@@ -106,9 +110,35 @@ public class guiLogin {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			
-				if (userList.contains(user) && passList.contains(pass)) {
-					JOptionPane.showMessageDialog(window, "Success");
+				boolean userPassFound = false;
+				//NEW LOG IN makes sure the user name corresponds to the password and not just is in the list
+				for(int y = 0; y < userList.size(); y++)
+				{
+					if(userList.get(y).equals(user) && passList.get(y).equals(pass))
+					{
+						userPassFound = true;
+						JOptionPane.showMessageDialog(window, "Welcome " + user + "!");
+						window.dispose();
+						try 
+						{
+							guiMain main = new guiMain();
+						} 
+						catch (NumberFormatException | IOException | ParseException e) 
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				if(userPassFound == false)
+				{
+					JOptionPane.showMessageDialog(window, "Invalid login credentials!");
+				}
+				
+				//OLD LOG IN
+				/*if (userList.contains(user) && passList.contains(pass)) 
+				{
+					JOptionPane.showMessageDialog(window, "Welcome!");
 					window.dispose();
 					try {
 						guiMain main = new guiMain();
@@ -116,9 +146,11 @@ public class guiLogin {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				} else {
-					JOptionPane.showMessageDialog(window, "No");
-				}
+				} 
+				else 
+				{
+					JOptionPane.showMessageDialog(window, "Invalid login credentials!");
+				}*/
 
 			}
 		});

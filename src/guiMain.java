@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -26,11 +27,49 @@ public class guiMain {
 	JButton graphButton;
 	Graph g = new Graph();
 
-	guiMain() throws NumberFormatException, IOException, ParseException {
-	     
+	guiMain() throws NumberFormatException, IOException, ParseException 
+	{
+		Main readFromFile = null;
+		try 
+		{
+			readFromFile = new Main();
+		} 
+		catch (NumberFormatException e1) 
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		catch (IOException e1) 
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		catch (ParseException e1) 
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	    
+		ArrayList<Date> dateArray = new ArrayList<Date>();
+		ArrayList<Double> openArray = new ArrayList<Double>();
+		ArrayList<Double> highArray = new ArrayList<Double>();
+		ArrayList<Double> lowArray = new ArrayList<Double>();
+		ArrayList<Double> closeArray = new ArrayList<Double>();
+		ArrayList<Double> volumeArray = new ArrayList<Double>();
+		ArrayList<Double> adjCloseArray = new ArrayList<Double>();	
+		
+	    dateArray = readFromFile.GetDateArray();
+	    openArray = readFromFile.GetOpenArray();
+	    highArray = readFromFile.GetHighArray();
+	    lowArray = readFromFile.GetLowArray();
+		closeArray = readFromFile.GetCloseArray();
+		volumeArray = readFromFile.GetVolumeArray();
+		adjCloseArray = readFromFile.GetAdjCloseArray();
+		
+		//final int dataAmount = closeArray.size();
 		
 		// Basic window
-		window = new JFrame("Main Window");
+		window = new JFrame("PROFITS R' US STOCK ANALYSIS");
 		window.setSize(699, 699);
 		window.getContentPane().setBackground(Color.GRAY);
 		window.getContentPane().setLayout(null);
@@ -55,10 +94,25 @@ public class guiMain {
 				String user = search.getText();
 
 				// ignore case
-				if (user.equals("Apple")) {
-					JOptionPane.showMessageDialog(window, "Success");
-				} else {
-					JOptionPane.showMessageDialog(window, "No");
+				if (user.equalsIgnoreCase("Apple")) 
+				{
+					JOptionPane.showMessageDialog(window, "Stock found!");
+				} 
+				else if (user.equalsIgnoreCase("Amazon")) 
+				{
+					JOptionPane.showMessageDialog(window, "Stock found!");
+				} 
+				else if (user.equalsIgnoreCase("Microsoft")) 
+				{
+					JOptionPane.showMessageDialog(window, "Stock found!");
+				} 
+				else if (user.equalsIgnoreCase("Google")) 
+				{
+					JOptionPane.showMessageDialog(window, "Stock found!");
+				} 
+				else 
+				{
+					JOptionPane.showMessageDialog(window, "Invalid stock!");
 				}
 
 			}
@@ -72,16 +126,16 @@ public class guiMain {
 		main.setBounds(20, 52, 653, 607);
 		window.getContentPane().add(main);
 
+		JPanel main2 = new JPanel();
+		main.addTab("Home", null, main2, null);
+		main2.setLayout(null);
+
 		JPanel main1 = new JPanel();
 		main.addTab("Graphs", null, main1, null);
 		main1.setLayout(null);
 
-		JPanel main2 = new JPanel();
-		main.addTab("NoobGuide", null, main2, null);
-		main2.setLayout(null);
-
 		JPanel main3 = new JPanel();
-		main.addTab("DevTeam", null, main3, null);
+		main.addTab("Credits", null, main3, null);
 		main3.setLayout(null);
 		JLabel label = new JLabel("");
 		label.setBounds(189, 127, 262, 300);
@@ -96,20 +150,21 @@ public class guiMain {
 		tabs.addTab("Current", null, tab1, null);
 		JPanel insideTab1 = new JPanel();
 
-		insideTab1.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		insideTab1.setBorder(new TitledBorder(null, "Data", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		insideTab1.setBounds(0, 0, 619, 496);
 		
-		 Graph gPanel = new Graph(g.createAndShowGui(0,0));
-		 System.out.println(g.createAndShowGui(0,0)); 
-		 gPanel.setBounds(10, 20,600, 450);
+		 Graph gPanel = new Graph(g.createAndShowGui(0,0, closeArray, dateArray));
+		 //System.out.println(g.createAndShowGui(0,0)); 
+		 gPanel.setBounds(10, 20, 600, 450);
 		 insideTab1.add(window.getContentPane().add(gPanel));
 		 
 		
-		JComboBox<Integer> days = new JComboBox();
-		days.addItem(20);
-		days.addItem(50);
-		days.addItem(100);
-		days.addItem(200);
+		JComboBox<String> days = new JComboBox();
+		days.addItem("None");
+		days.addItem("20");
+		days.addItem("50");
+		days.addItem("100");
+		days.addItem("200");
 		days.setBounds(115, 501, 108, 20);
 		tab1.add(days);
 		
@@ -128,24 +183,62 @@ public class guiMain {
 		graphButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				Main readFromFile = null;
-				try {
+				/*Main readFromFile = null;
+				try 
+				{
 					readFromFile = new Main();
-				} catch (NumberFormatException e1) {
+				} 
+				catch (NumberFormatException e1) 
+				{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} catch (IOException e1) {
+				} 
+				catch (IOException e1) 
+				{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} catch (ParseException e1) {
+				} 
+				catch (ParseException e1) 
+				{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
-			    ArrayList<Double> closeArray = new ArrayList<Double>();
-			    closeArray = readFromFile.GetCloseArray();
+				}*/
+			    
+				ArrayList<Date> dateArray = new ArrayList<Date>();
+				ArrayList<Double> openArray = new ArrayList<Double>();
+				ArrayList<Double> highArray = new ArrayList<Double>();
+				ArrayList<Double> lowArray = new ArrayList<Double>();
+				ArrayList<Double> closeArray = new ArrayList<Double>();
+				ArrayList<Double> volumeArray = new ArrayList<Double>();
+				ArrayList<Double> adjCloseArray = new ArrayList<Double>();	
 				
+			    dateArray = readFromFile.GetDateArray();
+			    openArray = readFromFile.GetOpenArray();
+			    highArray = readFromFile.GetHighArray();
+			    lowArray = readFromFile.GetLowArray();
+				closeArray = readFromFile.GetCloseArray();
+				volumeArray = readFromFile.GetVolumeArray();
+				adjCloseArray = readFromFile.GetAdjCloseArray();
+				
+			    
+			    int mvd = 0;
 			    //int day;
-				 int mvd = (int) days.getSelectedItem();
+				 if(days.getSelectedItem().equals("20"))
+				 {
+					 mvd = 20;
+				 }
+				 if(days.getSelectedItem().equals("50"))
+				 {
+					 mvd = 50;
+				 }
+				 if(days.getSelectedItem().equals("100"))
+				 {
+					 mvd = 100;
+				 }
+				 if(days.getSelectedItem().equals("200"))
+				 {
+					 mvd = 200;
+				 }
 				 
 				 String rangeSelection = (String)rangeBox.getSelectedItem();
 				 
@@ -169,18 +262,23 @@ public class guiMain {
 				 }
 				 
 				Graph gPanel = null;
-				try {
-					gPanel = new Graph(g.createAndShowGui(range, mvd));
-				} catch (NumberFormatException | IOException | ParseException e) {
+				try 
+				{
+					gPanel = new Graph(g.createAndShowGui(range, mvd, closeArray, dateArray));
+				} 
+				catch (NumberFormatException | IOException | ParseException e) 
+				{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				try {
+				/*try 
+				{
 					System.out.println(g.createAndShowGui(mvd,mvd));
-				} catch (NumberFormatException | IOException | ParseException e) {
+				}
+				catch (NumberFormatException | IOException | ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
 				gPanel.setBounds(10, 20, 600, 450);
 				insideTab1.add(window.getContentPane().add(gPanel));
 				
@@ -202,7 +300,7 @@ public class guiMain {
 		tabs.addTab("History", null, tab2, null);
 		tab2.setLayout(null);
 
-		userName = new JLabel("*graph here");
+		userName = new JLabel();//"*graph here");
 		userName.setLocation(10, 5);
 		userName.setSize(userName.getPreferredSize());
 		tab2.add(userName);

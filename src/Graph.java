@@ -173,7 +173,8 @@ public class Graph extends JPanel {
     
     
    //  Graph() {
-   static List<Double> createAndShowGui(int x, int mvd) throws NumberFormatException, IOException, ParseException {
+   static List<Double> createAndShowGui(int x, int mvd, ArrayList<Double> closeValues, ArrayList<Date> dateValues) throws NumberFormatException, IOException, ParseException 
+   {
         Random random = new Random();
         List<Double> scores = new ArrayList<>();
         
@@ -185,18 +186,15 @@ public class Graph extends JPanel {
         int maxDataPoints = x;// NOTE: this is where we will set the total days
         
         
-
-        Main readFromFile = new Main();
-        ArrayList<Double> closeArray = new ArrayList<Double>();
-        closeArray = readFromFile.GetCloseArray();
-        
+        //READ FROM FILE
+        /*Main readFromFile = new Main();     
         ArrayList<Double> closeValues = new ArrayList<Double>();
     	ArrayList<Date> dayValues = new ArrayList<Date>();
-    	ArrayList<Double> averageValues = new ArrayList<Double>();
     	closeValues = readFromFile.GetCloseArray();
-    	dayValues = readFromFile.GetDateArray();
+    	dayValues = readFromFile.GetDateArray();*/
     	
-    	int startingGraphIndex = closeValues.size() - x;
+        ArrayList<Double> averageValues = new ArrayList<Double>();
+    	int startingGraphIndex = closeValues.size() - maxDataPoints;
     	
     	
     	
@@ -212,22 +210,36 @@ public class Graph extends JPanel {
     	double total = 0;
     	int u = 0;
     	
-    	for(int y = 0; y < closeValues.size(); y++)
+    	if(mvd != 0)
     	{
-    		//total = 0;
-    		if(y+1 >= mvd)
-    		{
-    			total = 0;
-    			u = y;
-    			for(int z = mvd; z > 0 ; z--)
-    			{
-    				total = total + closeValues.get(u);
-    				//System.out.println(z + " " + total);
-    				u--;
-    			}
-    			averageValues.add(y, (double)total/mvd);
-    		}
+	    	//moving average calculation
+    		for(int y = 0; y < closeValues.size(); y++)
+	    	{
+	    		//total = 0;
+	    		if(y+1 >= mvd)
+	    		{
+	    			total = 0;
+	    			u = y;
+	    			for(int z = mvd; z > 0 ; z--)
+	    			{
+	    				total = total + closeValues.get(u);
+	    				//System.out.println(z + " " + total);
+	    				u--;
+	    			}
+	    			averageValues.add(y, (double)total/mvd);
+	    		}
+	    	}
     	}
+    	/*else
+    	{
+    		//no moving average
+    		for(int y = 0; y < closeValues.size(); y++)
+    		{
+    			averageValues.add(closeValues.get(y));
+    		}
+    		
+    	}*/
+    	
         
     	/*for (int i = 0; i < maxDataPoints; i++) 
         {
@@ -241,7 +253,14 @@ public class Graph extends JPanel {
         //trying to fix range
         for(int i = startingGraphIndex; i < closeValues.size(); i++)
         {
-        	scores.add(averageValues.get(i));
+        	if(mvd != 0)
+        	{
+        		scores.add(averageValues.get(i));
+        	}
+        	else
+        	{
+        		scores.add(closeValues.get(i));
+        	}
         }
      
         

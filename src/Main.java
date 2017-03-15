@@ -181,7 +181,7 @@ public class Main
 	
 	public static ArrayList<Date> GetDateArray()
 	{
-		Collections.reverse(dateArray);
+		//Collections.reverse(dateArray);
 		
 		/*for(int i = 0; i< dateArray.size(); i++)
 		{
@@ -192,37 +192,37 @@ public class Main
 	
 	public static ArrayList<Double> GetOpenArray()
 	{
-		Collections.reverse(openArray);
+		//Collections.reverse(openArray);
 		return openArray;
 	}
 	
 	public static ArrayList<Double> GetHighArray()
 	{
-		Collections.reverse(highArray);
+		//Collections.reverse(highArray);
 		return highArray;
 	}
 	
 	public static ArrayList<Double> GetLowArray()
 	{
-		Collections.reverse(lowArray);
+		//Collections.reverse(lowArray);
 		return lowArray;
 	}
 	
 	public static ArrayList<Double> GetCloseArray()
 	{
-		Collections.reverse(closeArray);
+		//Collections.reverse(closeArray);
 		return closeArray;
 	}
 	
 	public static ArrayList<Double> GetVolumeArray()
 	{
-		Collections.reverse(volumeArray);
+		//Collections.reverse(volumeArray);
 		return volumeArray;
 	}
 	
 	public static ArrayList<Double> GetAdjCloseArray()
 	{
-		Collections.reverse(adjCloseArray);
+		//Collections.reverse(adjCloseArray);
 		return adjCloseArray;
 	}
 	
