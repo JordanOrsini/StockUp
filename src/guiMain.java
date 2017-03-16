@@ -233,12 +233,12 @@ public class guiMain {
 		
 		JComboBox<String> days = new JComboBox();
 		days.addItem("None");
-		days.addItem("20");
-		days.addItem("50");
-		days.addItem("100");
-		days.addItem("200");
+		days.addItem("20 day");
+		days.addItem("50 day");
+		days.addItem("100 day");
+		days.addItem("200 day");
 		days.setBounds(300, 501, 108, 20);
-		JLabel dayLabel = new JLabel("Day Moving Avgs");
+		JLabel dayLabel = new JLabel("Moving Avg:");
 		dayLabel.setBounds(200,504,100,14);
 		tab1.add(dayLabel);
 		tab1.add(days);
@@ -249,7 +249,7 @@ public class guiMain {
 		rangeBox.addItem("Past 2 years");
 		rangeBox.addItem("Past 5 years");
 		rangeBox.setBounds(100, 501, 80, 20);
-		JLabel yearLabel = new JLabel("Sample Range");
+		JLabel yearLabel = new JLabel("Sample Range:");
 		yearLabel.setBounds(10,504,100,14);
 		tab1.add(yearLabel);
 		tab1.add(rangeBox);
@@ -301,19 +301,19 @@ public class guiMain {
 			    
 			    int mvd = 0;
 			    //int day;
-				 if(days.getSelectedItem().equals("20"))
+				 if(days.getSelectedItem().equals("20 day"))
 				 {
 					 mvd = 20;
 				 }
-				 if(days.getSelectedItem().equals("50"))
+				 if(days.getSelectedItem().equals("50 day"))
 				 {
 					 mvd = 50;
 				 }
-				 if(days.getSelectedItem().equals("100"))
+				 if(days.getSelectedItem().equals("100 day"))
 				 {
 					 mvd = 100;
 				 }
-				 if(days.getSelectedItem().equals("200"))
+				 if(days.getSelectedItem().equals("200 day"))
 				 {
 					 mvd = 200;
 				 }

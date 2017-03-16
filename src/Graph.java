@@ -121,7 +121,7 @@ public class Graph extends JPanel {
                     int labelWidth = metrics.stringWidth(xLabel);
                     cal.setTime(dates.get(i));
                     //System.out.println(dates.get(i));
-                    String myMonth = Integer.toString(cal.get(Calendar.MONTH + 1));
+                    String myMonth = Integer.toString(cal.get(Calendar.MONTH) + 1);
                     if(myMonth.length() == 1)
                     {
                     	myMonth = "0" + myMonth;

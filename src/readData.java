@@ -31,7 +31,7 @@ public class readData
 		boolean firstLoopComplete;
 		String[] parsingArray;
 		String stringDate;
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-mm-dd");
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date date;
 		
 		//ArrayList<String> dateArray = new ArrayList<String>();
