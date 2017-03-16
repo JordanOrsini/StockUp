@@ -1,6 +1,5 @@
 import java.awt.Color;
-
-
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -16,8 +15,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 public class guiMain {
 	
@@ -27,13 +29,14 @@ public class guiMain {
 	JButton searchBut;
 	JButton graphButton;
 	Graph g = new Graph();
+	private JTable table;
 
 	guiMain() throws NumberFormatException, IOException, ParseException 
 	{
-		Main readFromFile = null;
+		readData readFromFile = null;
 		try 
 		{
-			readFromFile = new Main();
+			readFromFile = new readData();
 		} 
 		catch (NumberFormatException e1) 
 		{
@@ -72,7 +75,7 @@ public class guiMain {
 		// Basic window
 		window = new JFrame("PROFITS R' US STOCK ANALYSIS");
 		window.setSize(699, 699);
-		window.getContentPane().setBackground(Color.GRAY);
+		window.getContentPane().setBackground(Color.DARK_GRAY);
 		window.getContentPane().setLayout(null);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
@@ -180,9 +183,30 @@ public class guiMain {
 		JPanel main3 = new JPanel();
 		main.addTab("Credits", null, main3, null);
 		main3.setLayout(null);
-		JLabel label = new JLabel("");
-		label.setBounds(189, 127, 262, 300);
-		main3.add(label);
+		table = new JTable();
+		table.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"Vasiliki Boutas"},
+				{"Dinh Bui"},
+				{"Sri Ram Ede"},
+				{"Jordan Orsini"},
+				{"Mehal Patel"},
+				{"Mattew To"},
+				{"Matthew Verrucci"},
+			},
+			new String[] {
+				"Development Team"
+			}
+		));
+		table.getColumnModel().getColumn(0).setPreferredWidth(144);
+		table.setBounds(52, 59, 533, 112);
+		main3.add(table);
+		
+		JLabel lblDevelopementTeam = new JLabel("Developement Team");
+		lblDevelopementTeam.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		lblDevelopementTeam.setBounds(52, 34, 188, 14);
+		main3.add(lblDevelopementTeam);
 
 		// Tabs
 		JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP);
@@ -198,8 +222,13 @@ public class guiMain {
 		
 		 Graph gPanel = new Graph(g.createAndShowGui(0,0, closeArray, dateArray));
 		 //System.out.println(g.createAndShowGui(0,0)); 
-		 gPanel.setBounds(10, 20, 600, 450);
+		 gPanel.setBounds(10, 20, 600, 445);
 		 insideTab1.add(window.getContentPane().add(gPanel));
+		
+		 JLabel Axis = new JLabel("Price vs Days");
+		 Axis.setBounds(271, 465 ,106,14);
+		insideTab1.add(Axis);
+		 
 		 
 		
 		JComboBox<String> days = new JComboBox();
@@ -208,7 +237,10 @@ public class guiMain {
 		days.addItem("50");
 		days.addItem("100");
 		days.addItem("200");
-		days.setBounds(115, 501, 108, 20);
+		days.setBounds(300, 501, 108, 20);
+		JLabel dayLabel = new JLabel("Day Moving Avgs");
+		dayLabel.setBounds(200,504,100,14);
+		tab1.add(dayLabel);
 		tab1.add(days);
 		
 		JComboBox<String> rangeBox = new JComboBox();
@@ -216,7 +248,10 @@ public class guiMain {
 		rangeBox.addItem("Past year");
 		rangeBox.addItem("Past 2 years");
 		rangeBox.addItem("Past 5 years");
-		rangeBox.setBounds(0, 501, 108, 20);
+		rangeBox.setBounds(75, 501, 108, 20);
+		JLabel yearLabel = new JLabel("Past years");
+		yearLabel.setBounds(10,504,100,14);
+		tab1.add(yearLabel);
 		tab1.add(rangeBox);
 		
 		graphButton = new JButton("Generate graph");

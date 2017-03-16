@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
-public class Main 
+public class readData 
 {
 	static ArrayList<Date> dateArray;
 	static ArrayList<Double> openArray;
@@ -23,7 +23,7 @@ public class Main
 	static ArrayList<Double> volumeArray;
 	static ArrayList<Double> adjCloseArray;	
 	
-	public Main() throws NumberFormatException, IOException, ParseException
+	public readData() throws NumberFormatException, IOException, ParseException
 	{
 		String fileName;
 		String currentLine;
