@@ -226,7 +226,7 @@ public class guiMain {
 		 insideTab1.add(window.getContentPane().add(gPanel));
 		
 		 JLabel Axis = new JLabel("Price vs Days");
-		 Axis.setBounds(271, 465 ,106,14);
+		 Axis.setBounds(271, 470 ,106,14);
 		insideTab1.add(Axis);
 		 
 		 
@@ -248,8 +248,8 @@ public class guiMain {
 		rangeBox.addItem("Past year");
 		rangeBox.addItem("Past 2 years");
 		rangeBox.addItem("Past 5 years");
-		rangeBox.setBounds(75, 501, 108, 20);
-		JLabel yearLabel = new JLabel("Past years");
+		rangeBox.setBounds(100, 501, 80, 20);
+		JLabel yearLabel = new JLabel("Sample Range");
 		yearLabel.setBounds(10,504,100,14);
 		tab1.add(yearLabel);
 		tab1.add(rangeBox);
