@@ -192,7 +192,7 @@ public class guiMain {
 				{"Sri Ram Ede"},
 				{"Jordan Orsini"},
 				{"Mehal Patel"},
-				{"Mattew To"},
+				{"Matthew To"},
 				{"Matthew Verrucci"},
 			},
 			new String[] {
@@ -225,7 +225,7 @@ public class guiMain {
 		 gPanel.setBounds(10, 20, 600, 445);
 		 insideTab1.add(window.getContentPane().add(gPanel));
 		
-		 JLabel Axis = new JLabel("Price vs Days");
+		 JLabel Axis = new JLabel("Price vs. Days");
 		 Axis.setBounds(271, 470 ,106,14);
 		insideTab1.add(Axis);
 		 
