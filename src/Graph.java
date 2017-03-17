@@ -159,6 +159,8 @@ public class Graph extends JPanel {
             int ovalH = pointWidth;
             g2.fillOval(x, y, ovalW, ovalH);
         }
+        
+        scores.clear();
     }
 
     private double getMinScore() {
@@ -266,6 +268,7 @@ public class Graph extends JPanel {
            // scores.add(closeArray.get(i));
         }*/
         dates.clear();
+        //scores.clear();
         //trying to fix range
         for(int i = startingGraphIndex; i < closeValues.size(); i++)
         {
