@@ -280,7 +280,7 @@ public class guiMain {
 		insideTab1.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		insideTab1.setBounds(0, 0, 910, 496);
 		
-		 Graph gPanel = new Graph(g.createAndShowGui(0,0, closeArray, dateArray));
+		 Graph gPanel = new Graph(g.createAndShowGui(0,0, closeArray, dateArray, 0));
 		 //System.out.println(g.createAndShowGui(0,0)); 
 		 gPanel.setBounds(10, 20, 875, 445);
 		 insideTab1.add(window.getContentPane().add(gPanel));
@@ -295,20 +295,32 @@ public class guiMain {
 		days.addItem("None");
 		days.addItem("20 day");
 		days.addItem("50 day");
-		days.addItem("100 day");
-		days.addItem("200 day");
-		days.setBounds(300, 501, 108, 20);
-		JLabel dayLabel = new JLabel("Moving Avg:");
-		dayLabel.setBounds(225,504,100,14);
+		//days.addItem("100 day");
+		//days.addItem("200 day");
+		days.setBounds(350, 501, 108, 20);
+		JLabel dayLabel = new JLabel("Moving Avg [Short]:");
+		dayLabel.setBounds(225,504,130,14);
 		tab1.add(dayLabel);
 		tab1.add(days);
+		
+		JComboBox<String> days2 = new JComboBox();
+		days2.addItem("None");
+		//days.addItem("20 day");
+		//days.addItem("50 day");
+		days2.addItem("100 day");
+		days2.addItem("200 day");
+		days2.setBounds(600, 501, 108, 20);
+		JLabel dayLabel2 = new JLabel("Moving Avg [Long]:");
+		dayLabel2.setBounds(475,504,130,14);
+		tab1.add(dayLabel2);
+		tab1.add(days2);
 		
 		JComboBox<String> rangeBox = new JComboBox();
 		rangeBox.addItem("All");
 		rangeBox.addItem("Past year");
 		rangeBox.addItem("Past 2 years");
 		rangeBox.addItem("Past 5 years");
-		rangeBox.setBounds(100, 501, 80, 20);
+		rangeBox.setBounds(100, 501, 108, 20);
 		JLabel yearLabel = new JLabel("Sample Range:");
 		yearLabel.setBounds(10,504,100,14);
 		tab1.add(yearLabel);
@@ -355,25 +367,25 @@ public class guiMain {
 						e1.printStackTrace();
 					  }
 					  
-					
-				    
-				    int selectedMovingAverage = 0;
+				    int selectedMovingAverage1 = 0;
 				    
 					if(days.getSelectedItem().equals("20 day"))
 					{
-						selectedMovingAverage = 20;
+						selectedMovingAverage1 = 20;
 					}
 					if(days.getSelectedItem().equals("50 day"))
 					{
-						selectedMovingAverage = 50;
+						selectedMovingAverage1 = 50;
 					}
-					if(days.getSelectedItem().equals("100 day"))
+					
+					int selectedMovingAverage2 = 0;
+					if(days2.getSelectedItem().equals("100 day"))
 					{
-						selectedMovingAverage = 100;
+						selectedMovingAverage2 = 100;
 					}
-					if(days.getSelectedItem().equals("200 day"))
+					if(days2.getSelectedItem().equals("200 day"))
 					{
-						selectedMovingAverage = 200;
+						selectedMovingAverage2 = 200;
 					}
 					 
 					 String rangeSelection = (String)rangeBox.getSelectedItem();
@@ -475,7 +487,7 @@ public class guiMain {
 					Graph gPanel = null;
 					try 
 					{
-						gPanel = new Graph(g.createAndShowGui(selectedSampleRange, selectedMovingAverage, closeArray, dateArray));
+						gPanel = new Graph(g.createAndShowGui(selectedSampleRange, selectedMovingAverage1, closeArray, dateArray, selectedMovingAverage2));
 					} 
 					catch (NumberFormatException | IOException | ParseException e) 
 					{

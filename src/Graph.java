@@ -54,6 +54,8 @@ public class Graph extends JPanel {
     private int numberYDivisions = 10;
     private List<Double> scores;
     public static ArrayList<String> dates = new ArrayList<String>();
+    public static ArrayList<Double> scores2 = new ArrayList<Double>();
+    public static ArrayList<Double> scores3 = new ArrayList<Double>();
    
 
     public Graph(List<Double> scores) {
@@ -74,12 +76,26 @@ public class Graph extends JPanel {
         double xScale = ((double) getWidth() - (2 * padding) - labelPadding) / (scores.size() - 1);
         double yScale = ((double) getHeight() - 2 * padding - labelPadding) / (getMaxScore() - getMinScore());
         List<Point> graphPoints = new ArrayList<>();
+        List<Point> graphPoints2 = new ArrayList<>();
+        List<Point> graphPoints3 = new ArrayList<>();
 
-        for (int i = 0; i < scores.size(); i++) {
+        for (int i = 0; i < scores.size(); i++) 
+        {
             int x1 = (int) (i * xScale + padding + labelPadding);
             int y1 = (int) ((getMaxScore() - scores.get(i)) * yScale + padding);
-            
             graphPoints.add(new Point(x1, y1));
+           
+            if(scores2.size() > 0)
+            {
+            	int y2 = (int) ((getMaxScore() - scores2.get(i)) * yScale + padding);
+            	graphPoints2.add(new Point(x1, y2));
+            }
+            
+            if(scores3.size() > 0)
+            {
+            	int y3 = (int) ((getMaxScore() - scores3.get(i)) * yScale + padding);
+            	graphPoints3.add(new Point(x1, y3));
+            }
         }
 
         // draw white background
@@ -151,6 +167,7 @@ public class Graph extends JPanel {
         g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, padding + labelPadding, padding);
         g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, getWidth() - padding, getHeight() - padding - labelPadding);
 
+        //LINE 1 HISTORICAL
         Stroke oldStroke = g2.getStroke();
         g2.setColor(lineColor);
         g2.setStroke(GRAPH_STROKE);
@@ -162,7 +179,7 @@ public class Graph extends JPanel {
             g2.drawLine(x1, y1, x2, y2);
         }
 
-        g2.setStroke(oldStroke);
+       /* g2.setStroke(oldStroke);
         g2.setColor(pointColor);
         for (int i = 0; i < graphPoints.size(); i++) {
             int x = graphPoints.get(i).x - pointWidth / 2;
@@ -170,9 +187,63 @@ public class Graph extends JPanel {
             int ovalW = pointWidth;
             int ovalH = pointWidth;
             g2.fillOval(x, y, ovalW, ovalH);
+        }*/
+        
+        if(scores2.size() > 0)
+        {
+        	//LINE 2 SHORT TERM MOVING AVERAGE
+        	g2.setColor(Color.orange);
+        	g2.setStroke(GRAPH_STROKE);
+        	for (int i = 0; i < graphPoints2.size() - 1; i++) 
+        	{
+        		int x1 = graphPoints2.get(i).x;
+        		int y1 = graphPoints2.get(i).y;
+        		int x2 = graphPoints2.get(i + 1).x;
+        		int y2 = graphPoints2.get(i + 1).y;
+        		g2.drawLine(x1, y1, x2, y2);
+        	}
+        
+        	/*g2.setStroke(oldStroke);
+        	g2.setColor(pointColor);
+        	for (int i = 0; i < graphPoints2.size(); i++) 
+        	{
+        		int x = graphPoints2.get(i).x - pointWidth / 2;
+        		int y = graphPoints2.get(i).y - pointWidth / 2;
+        		int ovalW = pointWidth;
+        		int ovalH = pointWidth;
+        		g2.fillOval(x, y, ovalW, ovalH);
+        	}*/
+        }
+        
+        if(scores3.size() > 0)
+        {
+        	//LINE 3 LONG TERM MOVING AVERAGE
+        	g2.setColor(Color.MAGENTA);
+        	g2.setStroke(GRAPH_STROKE);
+        	for (int i = 0; i < graphPoints3.size() - 1; i++) 
+        	{
+        		int x1 = graphPoints3.get(i).x;
+        		int y1 = graphPoints3.get(i).y;
+        		int x2 = graphPoints3.get(i + 1).x;
+        		int y2 = graphPoints3.get(i + 1).y;
+        		g2.drawLine(x1, y1, x2, y2);
+        	}
+        
+        	/*g2.setStroke(oldStroke);
+        	g2.setColor(pointColor);
+        	for (int i = 0; i < graphPoints3.size(); i++) 
+        	{
+        		int x = graphPoints3.get(i).x - pointWidth / 2;
+        		int y = graphPoints3.get(i).y - pointWidth / 2;
+        		int ovalW = pointWidth;
+        		int ovalH = pointWidth;
+        		g2.fillOval(x, y, ovalW, ovalH);
+        	}*/
         }
         
         scores.clear();
+        scores2.clear();
+        scores3.clear();
     }
 
     private double getMinScore() {
@@ -203,7 +274,7 @@ public class Graph extends JPanel {
     
     
    //  Graph() {
-   static List<Double> createAndShowGui(int x, int mvd, ArrayList<Double> closeValues, ArrayList<String> dateValues) throws NumberFormatException, IOException, ParseException 
+   static List<Double> createAndShowGui(int x, int mvd, ArrayList<Double> closeValues, ArrayList<String> dateValues, int mvd2) throws NumberFormatException, IOException, ParseException 
    {
         Random random = new Random();
         ArrayList<Double> scores = new ArrayList<Double>();
@@ -224,16 +295,8 @@ public class Graph extends JPanel {
     	dayValues = readFromFile.GetDateArray();*/
     	
         ArrayList<Double> averageValues = new ArrayList<Double>();
+        ArrayList<Double> averageValues2 = new ArrayList<Double>();
     	int startingGraphIndex = closeValues.size() - maxDataPoints;
-    	
-    	
-    	
-    	for(int x2 = 0; x2 < closeValues.size(); x2++)
-    	{
-    		averageValues.add((double) 0);
-    	}
-    	
-    	
     	
     	//should be days in the gui
     	//int mvd = 20;
@@ -242,7 +305,12 @@ public class Graph extends JPanel {
     	
     	if(mvd != 0)
     	{
-	    	//moving average calculation
+    		for(int x2 = 0; x2 < closeValues.size(); x2++)
+        	{
+        		averageValues.add((double) 0);
+        	}
+    		
+    		//moving average calculation
     		for(int y = 0; y < closeValues.size(); y++)
 	    	{
 	    		//total = 0;
@@ -261,15 +329,55 @@ public class Graph extends JPanel {
 	    	}
     	}
     	
+    	if(mvd2 != 0)
+    	{
+    		for(int x2 = 0; x2 < closeValues.size(); x2++)
+        	{
+        		averageValues2.add((double) 0);
+        	}
+    		
+    		//moving average calculation
+    		for(int y = 0; y < closeValues.size(); y++)
+	    	{
+	    		//total = 0;
+	    		if(y+1 >= mvd2)
+	    		{
+	    			total = 0;
+	    			u = y;
+	    			for(int z = mvd2; z > 0 ; z--)
+	    			{
+	    				total = total + closeValues.get(u);
+	    				//System.out.println(z + " " + total);
+	    				u--;
+	    			}
+	    			averageValues2.add(y, (double)total/mvd2);
+	    		}
+	    	}
+    	}
+    	
         dates.clear();
+        scores2.clear();
+        scores3.clear();
         //scores.clear();
         //trying to fix range
         for(int i = startingGraphIndex; i < closeValues.size(); i++)
         {
         	if(mvd != 0)
         	{
-        		scores.add(averageValues.get(i));
+        		scores.add(closeValues.get(i));
         		dates.add(dateValues.get(i));
+        		scores2.add(averageValues.get(i));
+        		
+        		if(mvd2 != 0)
+            	{
+            		scores3.add(averageValues2.get(i));
+            	}
+        	}
+        	else if(mvd2 != 0)
+        	{
+        		scores.add(closeValues.get(i));
+        		dates.add(dateValues.get(i));
+        		scores3.add(averageValues2.get(i));
         	}
         	else
         	{
