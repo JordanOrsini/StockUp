@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -163,8 +164,8 @@ public class guiLogin {
 				String user = userField.getText();
 				String pass = passField.getText();
 				
-				System.out.println(user);
-				System.out.println(pass);
+				//System.out.println(user);
+				//System.out.println(pass);
 				
 				//check var user with text file user( same for pass)
 				String filename = "loginCredentials/user.txt";
@@ -251,9 +252,9 @@ public class guiLogin {
 		window.add(passField);
 
 		// Button
-		loginButton = new JButton("Login");
+		loginButton = new JButton("Log in");
 		loginButton.setSize(loginButton.getPreferredSize());
-		loginButton.setLocation(230, 140);
+		loginButton.setLocation(176, 140);
 		loginButton.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) {
@@ -346,32 +347,105 @@ public class guiLogin {
 		window.add(loginButton);
 		
 		
-		createAcc = new JButton("Create Account");
-		createAcc.setSize(loginButton.getPreferredSize());
-		createAcc.setLocation(163, 170);
-		createAcc.setSize(200,28);
+		createAcc = new JButton("Register");
+		createAcc.setSize(createAcc.getPreferredSize());
+		createAcc.setLocation(253, 140);
 		createAcc.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) {
 				String user = userField.getText();
 				String pass = passField.getText();
+				boolean duplicateFound = false;
+				boolean nullFound = false;
 				
-				try{
-					PrintWriter userWrite = new PrintWriter(new BufferedWriter(new FileWriter("loginCredentials/user.txt",true)));
-					PrintWriter passWrite = new PrintWriter(new BufferedWriter(new FileWriter("loginCredentials/pass.txt",true)));
-					userWrite.println();
-					passWrite.println();
-					userWrite.println(user);
-					passWrite.println(pass);
-					userWrite.close();
-					passWrite.close();
-					JOptionPane.showMessageDialog(window, "Successfully registered!");
-					window.dispose();
-					new guiLogin();
-					
+				if(user.equals("") || pass.equals(""))
+				{
+					nullFound = true;
 				}
-				catch(IOException e){
-					JOptionPane.showMessageDialog(window, "Error Registering!");
+				
+				if(nullFound == false)
+				{
+					ArrayList<String> userList = new ArrayList<String>();
+					FileReader file;
+					
+					try 
+					{
+						String filename = "loginCredentials/user.txt";
+						file = new FileReader(filename);
+						
+						BufferedReader buff = new BufferedReader(file);	
+						
+						String line = null;
+						
+						while (((line = buff.readLine()) != null)) 
+						{
+							userList.add(line);	
+						}
+	
+						buff.close();
+					}
+					catch (FileNotFoundException e) 
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+					catch (IOException e) 
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					for(int t = 0; t < userList.size(); t++)
+					{
+						if(userList.get(t).equals(user))
+						{
+							duplicateFound = true;
+						}
+					}
+				}
+						
+				
+				if(duplicateFound == false && nullFound == false)
+				{
+					try
+					{
+						PrintWriter userWrite = new PrintWriter(new BufferedWriter(new FileWriter("loginCredentials/user.txt",true)));
+						PrintWriter passWrite = new PrintWriter(new BufferedWriter(new FileWriter("loginCredentials/pass.txt",true)));
+						//userWrite.println();
+						//passWrite.println();
+						userWrite.print("\n" + user);
+						passWrite.print("\n" + pass);
+						userWrite.close();
+						passWrite.close();
+						JOptionPane.showMessageDialog(window, "Registration successful!");
+						
+						PrintStream outputWriter;
+						outputWriter = new PrintStream("userProfiles/" + user + ".txt");
+						window.dispose();
+						//new guiLogin();
+						
+						try 
+						{
+							guiMain main = new guiMain(user);
+						} 
+						catch (NumberFormatException | IOException | ParseException e) 
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+					catch(IOException e){
+						JOptionPane.showMessageDialog(window, "Registration error!");
+					}
+				}
+				else if(duplicateFound == true)
+				{
+					JOptionPane.showMessageDialog(window, "Username already exists!");
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(window, "Null entry!");
 				}
 				
 			}

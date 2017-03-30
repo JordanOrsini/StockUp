@@ -155,7 +155,16 @@ public class guiMain {
 		
 		logoutButton = new JButton("Logout");
 		logoutButton.setSize(logoutButton.getPreferredSize());
-		logoutButton.setLocation(603, 35);
+		logoutButton.setLocation(130, 7);
+		
+		logoutButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				window.dispose();
+				guiLogin main = new guiLogin();
+			}
+		});
 		window.getContentPane().add(logoutButton);
 		
 		// Search button
