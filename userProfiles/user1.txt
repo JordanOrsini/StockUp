@@ -1,2 +1,5 @@
 
-AAPL
+YHOO
+INTC
+WMT
+KO

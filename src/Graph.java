@@ -87,14 +87,20 @@ public class Graph extends JPanel {
            
             if(scores2.size() > 0)
             {
-            	int y2 = (int) ((getMaxScore() - scores2.get(i)) * yScale + padding);
-            	graphPoints2.add(new Point(x1, y2));
+            	if(scores2.get(i) != 0)
+            	{
+            		int y2 = (int) ((getMaxScore() - scores2.get(i)) * yScale + padding);
+            		graphPoints2.add(new Point(x1, y2));
+            	}
             }
             
             if(scores3.size() > 0)
             {
-            	int y3 = (int) ((getMaxScore() - scores3.get(i)) * yScale + padding);
-            	graphPoints3.add(new Point(x1, y3));
+            	if(scores3.get(i) != 0)
+            	{
+            		int y3 = (int) ((getMaxScore() - scores3.get(i)) * yScale + padding);
+            		graphPoints3.add(new Point(x1, y3));
+            	}
             }
         }
 
