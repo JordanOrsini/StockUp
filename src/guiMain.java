@@ -55,27 +55,6 @@ public class guiMain {
 
 	guiMain(String user) throws NumberFormatException, IOException, ParseException 
 	{
-		readData readFromFile = null;
-		try 
-		{
-			readFromFile = new readData();
-		} 
-		catch (NumberFormatException e1) 
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		catch (IOException e1) 
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		catch (ParseException e1) 
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	    
 		ArrayList<String> dateArray = new ArrayList<String>();
 		ArrayList<Double> closeArray = new ArrayList<Double>();
 		
