@@ -60,8 +60,8 @@ public class guiLogin {
 				String pass = passField.getText();
 				
 				//check var user with text file user( same for pass)
-				String filename = "user.txt";
-				String filename2 = "pass.txt";
+				String filename = "loginCredentials/user.txt";
+				String filename2 = "loginCredentials/pass.txt";
 				ArrayList<String> userList = new ArrayList<String>();
 				ArrayList<String> passList = new ArrayList<String>();
 				
@@ -108,7 +108,7 @@ public class guiLogin {
 						window.dispose();
 						try 
 						{
-							guiMain main = new guiMain();
+							guiMain main = new guiMain(user);
 						} 
 						catch (NumberFormatException | IOException | ParseException e) 
 						{
@@ -155,8 +155,8 @@ public class guiLogin {
 				String pass = passField.getText();
 				
 				//check var user with text file user( same for pass)
-				String filename = "user.txt";
-				String filename2 = "pass.txt";
+				String filename = "loginCredentials/user.txt";
+				String filename2 = "loginCredentials/pass.txt";
 				ArrayList<String> userList = new ArrayList<String>();
 				ArrayList<String> passList = new ArrayList<String>();
 				
@@ -203,7 +203,7 @@ public class guiLogin {
 						window.dispose();
 						try 
 						{
-							guiMain main = new guiMain();
+							guiMain main = new guiMain(user);
 						} 
 						catch (NumberFormatException | IOException | ParseException e) 
 						{
@@ -250,8 +250,8 @@ public class guiLogin {
 				String pass = passField.getText();
 				
 				//check var user with text file user( same for pass)
-				String filename = "user.txt";
-				String filename2 = "pass.txt";
+				String filename = "loginCredentials/user.txt";
+				String filename2 = "loginCredentials/pass.txt";
 				ArrayList<String> userList = new ArrayList<String>();
 				ArrayList<String> passList = new ArrayList<String>();
 				
@@ -298,7 +298,7 @@ public class guiLogin {
 						window.dispose();
 						try 
 						{
-							guiMain main = new guiMain();
+							guiMain main = new guiMain(user);
 						} 
 						catch (NumberFormatException | IOException | ParseException e) 
 						{

@@ -1,0 +1,3 @@
+admin
+pass1
+pass2

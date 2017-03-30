@@ -2,6 +2,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -21,6 +24,17 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import yahoofinance.Stock;
+import yahoofinance.YahooFinance;
+import yahoofinance.histquotes.HistoricalQuote;
+import yahoofinance.histquotes.Interval;
+import yahoofinance.quotes.stock.StockQuote;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map; 
+
 public class guiMain {
 	
 	JFrame window;
@@ -30,8 +44,9 @@ public class guiMain {
 	JButton graphButton;
 	Graph g = new Graph();
 	private JTable table;
+	JComboBox<String> comboBox;
 
-	guiMain() throws NumberFormatException, IOException, ParseException 
+	guiMain(String user) throws NumberFormatException, IOException, ParseException 
 	{
 		readData readFromFile = null;
 		try 
@@ -87,32 +102,45 @@ public class guiMain {
 		search.setLocation(418, 11);
 		search.setToolTipText("Enter stock");
 		search.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				String user = search.getText();
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				String user = search.getText().toUpperCase();
 
-				// ignore case
-				if (user.equalsIgnoreCase("Apple")) 
+				try
 				{
-					JOptionPane.showMessageDialog(window, "Stock found!");
-				} 
-				else if (user.equalsIgnoreCase("Amazon")) 
-				{
-					JOptionPane.showMessageDialog(window, "Stock found!");
-				} 
-				else if (user.equalsIgnoreCase("Microsoft")) 
-				{
-					JOptionPane.showMessageDialog(window, "Stock found!");
-				} 
-				else if (user.equalsIgnoreCase("Google")) 
-				{
-					JOptionPane.showMessageDialog(window, "Stock found!");
-				} 
-				else 
+					Stock myStock = YahooFinance.get(user);
+					boolean found = false;
+					if(myStock.getQuote().getPrice() != null)
+					{
+						for(int x = 0; x < comboBox.getItemCount(); x++)
+						{
+							if(comboBox.getItemAt(x).equals(user))
+							{
+								found = true;
+							}
+						}
+						
+						if(found == false)
+						{
+							JOptionPane.showMessageDialog(window, "Stock added!");
+							comboBox.addItem(user);
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(window, "Duplicate stock!");
+						}
+						
+						
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(window, "Invalid stock!");
+					}
+				}
+				catch (Exception e)
 				{
 					JOptionPane.showMessageDialog(window, "Invalid stock!");
 				}
-
 			}
 		});
 		window.getContentPane().add(search);
@@ -122,32 +150,45 @@ public class guiMain {
 		searchBut.setSize(searchBut.getPreferredSize());
 		searchBut.setLocation(603, 10);
 		searchBut.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				String user = search.getText();
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				String user = search.getText().toUpperCase();
 
-				// ignore case
-				if (user.equalsIgnoreCase("Apple")) 
+				try
 				{
-					JOptionPane.showMessageDialog(window, "Stock found!");
-				} 
-				else if (user.equalsIgnoreCase("Amazon")) 
-				{
-					JOptionPane.showMessageDialog(window, "Stock found!");
-				} 
-				else if (user.equalsIgnoreCase("Microsoft")) 
-				{
-					JOptionPane.showMessageDialog(window, "Stock found!");
-				} 
-				else if (user.equalsIgnoreCase("Google")) 
-				{
-					JOptionPane.showMessageDialog(window, "Stock found!");
-				} 
-				else 
+					Stock myStock = YahooFinance.get(user);
+					boolean found = false;
+					if(myStock.getQuote().getPrice() != null)
+					{
+						for(int x = 0; x < comboBox.getItemCount(); x++)
+						{
+							if(comboBox.getItemAt(x).equals(user))
+							{
+								found = true;
+							}
+						}
+						
+						if(found == false)
+						{
+							JOptionPane.showMessageDialog(window, "Stock added!");
+							comboBox.addItem(user);
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(window, "Duplicate stock!");
+						}
+						
+						
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(window, "Invalid stock!");
+					}
+				}
+				catch (Exception e)
 				{
 					JOptionPane.showMessageDialog(window, "Invalid stock!");
 				}
-
 			}
 		});
 		window.getContentPane().add(searchBut);
@@ -375,7 +416,7 @@ public class guiMain {
 		tab1.setLayout(null);
 
 		JPanel tab2 = new JPanel();
-		tabs.addTab("History", null, tab2, null);
+		//tabs.addTab("History", null, tab2, null);
 		tab2.setLayout(null);
 
 		userName = new JLabel();//"*graph here");
@@ -383,11 +424,43 @@ public class guiMain {
 		userName.setSize(userName.getPreferredSize());
 		tab2.add(userName);
 
-		JComboBox<String> comboBox = new JComboBox();
-		comboBox.addItem("Apple");
-		comboBox.addItem("Amazon");
-		comboBox.addItem("Microsoft");
-		comboBox.addItem("Google");
+		comboBox = new JComboBox();
+		
+		String filename = "userProfiles/" + user + ".txt";
+		
+		ArrayList<String> stockList = new ArrayList<String>();
+
+		FileReader file;
+		
+		try
+		{
+			file = new FileReader(filename);
+			BufferedReader buff = new BufferedReader(file);
+			
+			String line = null;
+			
+			while (((line = buff.readLine()) != null))
+			{
+				stockList.add(line);
+			}
+			
+			buff.close();
+		}
+		catch (FileNotFoundException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for(int boxSize = 0; boxSize < stockList.size(); boxSize++)
+		{
+			comboBox.addItem(stockList.get(boxSize));
+		}
+		
 		comboBox.setBounds(20, 11, 108, 20);
 		window.getContentPane().add(comboBox);
 
@@ -399,7 +472,7 @@ public class guiMain {
 	// Main method
 	public static void main(String[] args) throws NumberFormatException, IOException, ParseException { // TODO Auto-generated
 
-		new guiMain();
+		new guiMain("admin");
 
 	}
 	
