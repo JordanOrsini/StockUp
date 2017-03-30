@@ -34,6 +34,7 @@ import yahoofinance.quotes.stock.StockQuote;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map; 
 
@@ -49,6 +50,8 @@ public class guiMain {
 	private JTable table;
 	JComboBox<String> comboBox;
 	String filename;
+	Stock myStock;
+	List<HistoricalQuote> stockHistory;
 
 	guiMain(String user) throws NumberFormatException, IOException, ParseException 
 	{
@@ -73,21 +76,11 @@ public class guiMain {
 			e1.printStackTrace();
 		}
 	    
-		ArrayList<Date> dateArray = new ArrayList<Date>();
-		ArrayList<Double> openArray = new ArrayList<Double>();
-		ArrayList<Double> highArray = new ArrayList<Double>();
-		ArrayList<Double> lowArray = new ArrayList<Double>();
+		ArrayList<String> dateArray = new ArrayList<String>();
 		ArrayList<Double> closeArray = new ArrayList<Double>();
-		ArrayList<Double> volumeArray = new ArrayList<Double>();
-		ArrayList<Double> adjCloseArray = new ArrayList<Double>();	
 		
-	    dateArray = readFromFile.GetDateArray();
-	    openArray = readFromFile.GetOpenArray();
-	    highArray = readFromFile.GetHighArray();
-	    lowArray = readFromFile.GetLowArray();
-		closeArray = readFromFile.GetCloseArray();
-		volumeArray = readFromFile.GetVolumeArray();
-		adjCloseArray = readFromFile.GetAdjCloseArray();
+	    //dateArray = readFromFile.GetDateArray();
+		//closeArray = readFromFile.GetCloseArray();
 		
 		//final int dataAmount = closeArray.size();
 		
@@ -328,109 +321,187 @@ public class guiMain {
 		graphButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				/*Main readFromFile = null;
-				try 
+				if(comboBox.getItemCount() != 0)
 				{
-					readFromFile = new Main();
-				} 
-				catch (NumberFormatException e1) 
-				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} 
-				catch (IOException e1) 
-				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} 
-				catch (ParseException e1) 
-				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}*/
-			    
-				ArrayList<Date> dateArray = new ArrayList<Date>();
-				ArrayList<Double> openArray = new ArrayList<Double>();
-				ArrayList<Double> highArray = new ArrayList<Double>();
-				ArrayList<Double> lowArray = new ArrayList<Double>();
-				ArrayList<Double> closeArray = new ArrayList<Double>();
-				ArrayList<Double> volumeArray = new ArrayList<Double>();
-				ArrayList<Double> adjCloseArray = new ArrayList<Double>();	
+					ArrayList<String> dateArray = new ArrayList<String>();
 				
-			    dateArray = readFromFile.GetDateArray();
-			    openArray = readFromFile.GetOpenArray();
-			    highArray = readFromFile.GetHighArray();
-			    lowArray = readFromFile.GetLowArray();
-				closeArray = readFromFile.GetCloseArray();
-				volumeArray = readFromFile.GetVolumeArray();
-				adjCloseArray = readFromFile.GetAdjCloseArray();
-				
-			    
-			    int mvd = 0;
-			    //int day;
-				 if(days.getSelectedItem().equals("20 day"))
-				 {
-					 mvd = 20;
-				 }
-				 if(days.getSelectedItem().equals("50 day"))
-				 {
-					 mvd = 50;
-				 }
-				 if(days.getSelectedItem().equals("100 day"))
-				 {
-					 mvd = 100;
-				 }
-				 if(days.getSelectedItem().equals("200 day"))
-				 {
-					 mvd = 200;
-				 }
-				 
-				 String rangeSelection = (String)rangeBox.getSelectedItem();
-				 
-				 int range = 0;
-				
-				 if(rangeSelection.equals("All"))
-				 {
-					 range = closeArray.size();
-				 }
-				 if(rangeSelection.equals("Past year"))
-				 {
-					 range = 365;
-				 }
-				 if(rangeSelection.equals("Past 2 years"))
-				 {
-					 range = 730;
-				 }
-				 if(rangeSelection.equals("Past 5 years"))
-				 {
-					 range = 1825;
-				 }
-				 
-				Graph gPanel = null;
-				try 
-				{
-					gPanel = new Graph(g.createAndShowGui(range, mvd, closeArray, dateArray));
-				} 
-				catch (NumberFormatException | IOException | ParseException e) 
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					ArrayList<Double> closeArray = new ArrayList<Double>();
+					
+				    //dateArray = readFromFile.GetDateArray();
+					//closeArray = readFromFile.GetCloseArray();
+					
+					Calendar fromAll = Calendar.getInstance();
+					  Calendar from1 = Calendar.getInstance();
+					  Calendar from2 = Calendar.getInstance();
+					  Calendar from5 = Calendar.getInstance();
+					  
+					  Calendar to = Calendar.getInstance();
+					  Calendar cal = Calendar.getInstance();
+					  
+					  fromAll.add(Calendar.YEAR, -1000);
+					  from1.add(Calendar.YEAR, -1);
+					  from2.add(Calendar.YEAR, -2);
+					  from5.add(Calendar.YEAR, -5);
+					  
+					  String stockSelection = (String)comboBox.getSelectedItem();
+					  
+					  try 
+					  {
+						myStock = YahooFinance.get(stockSelection);
+					  } 
+					  catch (IOException e1) 
+					  {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					  }
+					  
+					
+				    
+				    int selectedMovingAverage = 0;
+				    
+					if(days.getSelectedItem().equals("20 day"))
+					{
+						selectedMovingAverage = 20;
+					}
+					if(days.getSelectedItem().equals("50 day"))
+					{
+						selectedMovingAverage = 50;
+					}
+					if(days.getSelectedItem().equals("100 day"))
+					{
+						selectedMovingAverage = 100;
+					}
+					if(days.getSelectedItem().equals("200 day"))
+					{
+						selectedMovingAverage = 200;
+					}
+					 
+					 String rangeSelection = (String)rangeBox.getSelectedItem();
+					 
+					 int selectedSampleRange = 0;
+					
+					 if(rangeSelection.equals("All"))
+					 {
+						 //selectedSampleRange = closeArray.size();
+						 try 
+						 {
+							stockHistory = myStock.getHistory(fromAll, to, Interval.DAILY);
+						 } 
+						 catch (IOException e) 
+						 {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						 }
+						 
+						 selectedSampleRange = stockHistory.size();
+					 }
+					 if(rangeSelection.equals("Past year"))
+					 {
+						 //selectedSampleRange = 365;
+						 try 
+						 {
+							stockHistory = myStock.getHistory(from1, to, Interval.DAILY);
+						 } 
+						 catch (IOException e) 
+						 {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						 }
+						 
+						 selectedSampleRange = stockHistory.size();
+					 }
+					 if(rangeSelection.equals("Past 2 years"))
+					 {
+						 //selectedSampleRange = 730;
+						 try 
+						 {
+							stockHistory = myStock.getHistory(from2, to, Interval.DAILY);
+						 } 
+						 catch (IOException e) 
+						 {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						 }
+						 
+						 selectedSampleRange = stockHistory.size();
+					 }
+					 if(rangeSelection.equals("Past 5 years"))
+					 {
+						 //selectedSampleRange = 1825;
+						 try 
+						 {
+							stockHistory = myStock.getHistory(from5, to, Interval.DAILY);
+						 } 
+						 catch (IOException e) 
+						 {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						 }
+						 
+						 selectedSampleRange = stockHistory.size();
+					 }
+					 
+					 for(int x = 0; x < stockHistory.size(); x++)
+					  {
+						  cal = stockHistory.get(x).getDate();
+						  
+						  String myMonth = Integer.toString(cal.get(Calendar.MONTH) + 1);
+				          
+						  if(myMonth.length() == 1)
+				          {
+				          	myMonth = "0" + myMonth;
+				          }
+						  
+						  String myYear = Integer.toString(cal.get(Calendar.YEAR));
+						  
+						  dateArray.add(myMonth + "/" + myYear);
+						  closeArray.add(stockHistory.get(x).getClose().doubleValue());
+						  
+						 // System.out.println(myMonth + "/" + myYear);
+						  //System.out.println(stockHistory.get(x).getClose());
+						  //System.out.println();
+					  }
+					 
+					 Collections.reverse(dateArray);
+					 Collections.reverse(closeArray);
+					 
+					 /*for(int x = 0; x< dateArray.size(); x ++)
+					 {
+						 System.out.println(dateArray.get(x));
+						 System.out.println(closeArray.get(x));
+						 System.out.println();
+					 }*/
+					 
+					Graph gPanel = null;
+					try 
+					{
+						gPanel = new Graph(g.createAndShowGui(selectedSampleRange, selectedMovingAverage, closeArray, dateArray));
+					} 
+					catch (NumberFormatException | IOException | ParseException e) 
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					/*try 
+					{
+						System.out.println(g.createAndShowGui(mvd,mvd));
+					}
+					catch (NumberFormatException | IOException | ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}*/
+					gPanel.setBounds(10, 20, 875, 450);
+					insideTab1.add(window.getContentPane().add(gPanel));
+					
+					//insideTab1.repaint();
+					gPanel.repaint();
+					gPanel.revalidate();
+					//insideTab1.revalidate();
 				}
-				/*try 
+				else
 				{
-					System.out.println(g.createAndShowGui(mvd,mvd));
+					JOptionPane.showMessageDialog(window, "No stock selected!");
 				}
-				catch (NumberFormatException | IOException | ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
-				gPanel.setBounds(10, 20, 875, 450);
-				insideTab1.add(window.getContentPane().add(gPanel));
-				
-				//insideTab1.repaint();
-				gPanel.repaint();
-				gPanel.revalidate();
-				//insideTab1.revalidate();
 			}
 
 		});

@@ -53,7 +53,7 @@ public class Graph extends JPanel {
     private int pointWidth = 4;
     private int numberYDivisions = 10;
     private List<Double> scores;
-    public static ArrayList<Date> dates = new ArrayList<Date>();
+    public static ArrayList<String> dates = new ArrayList<String>();
    
 
     public Graph(List<Double> scores) {
@@ -111,7 +111,7 @@ public class Graph extends JPanel {
         //ADDED
         int division = 11;
         
-        Calendar cal = Calendar.getInstance();
+        //Calendar cal = Calendar.getInstance();
         
         // and for x axis
         for (int i = 0; i < scores.size(); i++) {
@@ -130,14 +130,15 @@ public class Graph extends JPanel {
                     String xLabel = i+1 + "";
                     FontMetrics metrics = g2.getFontMetrics();
                     int labelWidth = metrics.stringWidth(xLabel);
-                    cal.setTime(dates.get(i));
+                   // cal.setTime(dates.get(i));
                     //System.out.println(dates.get(i));
-                    String myMonth = Integer.toString(cal.get(Calendar.MONTH) + 1);
-                    if(myMonth.length() == 1)
-                    {
-                    	myMonth = "0" + myMonth;
-                    }
-                    g2.drawString(/*xLabel*/ myMonth + "/" + Integer.toString(cal.get(Calendar.YEAR)), x0 - labelWidth / 2, y0 + metrics.getHeight() + 3);
+                    //String myMonth = Integer.toString(cal.get(Calendar.MONTH) + 1);
+                    //if(myMonth.length() == 1)
+                    //{
+                    //	myMonth = "0" + myMonth;
+                    //}
+                    //g2.drawString(/*xLabel*/ myMonth + "/" + Integer.toString(cal.get(Calendar.YEAR)), x0 - labelWidth / 2, y0 + metrics.getHeight() + 3);
+                    g2.drawString(dates.get(i), x0 - labelWidth / 2, y0 + metrics.getHeight() + 3);
                     //SWITCHED PART1
                     g2.drawLine(x0, y0, x1, y1);
                 }
@@ -202,10 +203,10 @@ public class Graph extends JPanel {
     
     
    //  Graph() {
-   static List<Double> createAndShowGui(int x, int mvd, ArrayList<Double> closeValues, ArrayList<Date> dateValues) throws NumberFormatException, IOException, ParseException 
+   static List<Double> createAndShowGui(int x, int mvd, ArrayList<Double> closeValues, ArrayList<String> dateValues) throws NumberFormatException, IOException, ParseException 
    {
         Random random = new Random();
-        List<Double> scores = new ArrayList<>();
+        ArrayList<Double> scores = new ArrayList<Double>();
         
     	/*double[] average = new double[x];
     	 for (int i = 0; i < x; i++) {
@@ -259,25 +260,7 @@ public class Graph extends JPanel {
 	    		}
 	    	}
     	}
-    	/*else
-    	{
-    		//no moving average
-    		for(int y = 0; y < closeValues.size(); y++)
-    		{
-    			averageValues.add(closeValues.get(y));
-    		}
-    		
-    	}*/
     	
-        
-    	/*for (int i = 0; i < maxDataPoints; i++) 
-        {
-        	//NOTE: if we have them in chronological order, array[i]
-            //scores.add((double) random.nextDouble() * maxScore);
-            //scores.add((double) i);
-        	 scores.add(averageValues.get(i));
-           // scores.add(closeArray.get(i));
-        }*/
         dates.clear();
         //scores.clear();
         //trying to fix range
@@ -294,8 +277,6 @@ public class Graph extends JPanel {
         		dates.add(dateValues.get(i));
         	}
         }
-     
-        
         return scores;
     }
 
