@@ -43,6 +43,7 @@ public class guiMain {
 	JLabel userName;
 	JTextField search;
 	JButton searchBut;
+	JButton logoutButton;
 	JButton graphButton;
 	Graph g = new Graph();
 	private JTable table;
@@ -151,7 +152,12 @@ public class guiMain {
 			}
 		});
 		window.getContentPane().add(search);
-
+		
+		logoutButton = new JButton("Logout");
+		logoutButton.setSize(logoutButton.getPreferredSize());
+		logoutButton.setLocation(603, 35);
+		window.getContentPane().add(logoutButton);
+		
 		// Search button
 		searchBut = new JButton("Search");
 		searchBut.setSize(searchBut.getPreferredSize());
@@ -266,7 +272,7 @@ public class guiMain {
 		main1.add(tabs);
 
 		JPanel tab1 = new JPanel();
-		tabs.addTab("Current", null, tab1, null);
+		tabs.addTab(user, null, tab1, null);
 		JPanel insideTab1 = new JPanel();
 
 		insideTab1.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, null, null));
