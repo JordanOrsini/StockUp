@@ -230,7 +230,7 @@ public class guiMain {
 		main.addTab("Home", null, main2, null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 628, 557);
+		panel.setBounds(150, 0, 628, 557);
 		JLabel label1 = new JLabel();
 		String path = "img/img.jpg";
 		ImageIcon img = new ImageIcon(path);
@@ -267,7 +267,7 @@ public class guiMain {
 			}
 		));
 		table.getColumnModel().getColumn(0).setPreferredWidth(144);
-		table.setBounds(52, 59, 533, 112);
+		table.setBounds(52, 59, 825, 112);
 		main3.add(table);
 		
 		JLabel lblDevelopementTeam = new JLabel("Developement Team");
