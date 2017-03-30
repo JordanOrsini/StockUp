@@ -3,8 +3,10 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ public class guiMain {
 	Graph g = new Graph();
 	private JTable table;
 	JComboBox<String> comboBox;
+	String filename;
 
 	guiMain(String user) throws NumberFormatException, IOException, ParseException 
 	{
@@ -124,6 +127,10 @@ public class guiMain {
 						{
 							JOptionPane.showMessageDialog(window, "Stock added!");
 							comboBox.addItem(user);
+							
+							BufferedWriter out = new BufferedWriter(new FileWriter(filename, true));
+							out.write("\n" + user);
+							out.close();
 						}
 						else
 						{
@@ -172,6 +179,10 @@ public class guiMain {
 						{
 							JOptionPane.showMessageDialog(window, "Stock added!");
 							comboBox.addItem(user);
+							
+							BufferedWriter out = new BufferedWriter(new FileWriter(filename, true));
+							out.write("\n" + user);
+							out.close();
 						}
 						else
 						{
@@ -426,7 +437,7 @@ public class guiMain {
 
 		comboBox = new JComboBox();
 		
-		String filename = "userProfiles/" + user + ".txt";
+		filename = "userProfiles/" + user + ".txt";
 		
 		ArrayList<String> stockList = new ArrayList<String>();
 
@@ -456,9 +467,12 @@ public class guiMain {
 			e.printStackTrace();
 		}
 		
-		for(int boxSize = 0; boxSize < stockList.size(); boxSize++)
+		if(stockList.size() > 0)
 		{
-			comboBox.addItem(stockList.get(boxSize));
+			for(int boxSize = 1; boxSize < stockList.size(); boxSize++)
+			{
+				comboBox.addItem(stockList.get(boxSize));
+			}
 		}
 		
 		comboBox.setBounds(20, 11, 108, 20);

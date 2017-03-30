@@ -32,14 +32,22 @@ public class YahooTest
   	intel.print();
   	airbus.print();*/
 	  
-	  Calendar from = Calendar.getInstance();
+	  Calendar fromAll = Calendar.getInstance();
+	  Calendar from1 = Calendar.getInstance();
+	  Calendar from2 = Calendar.getInstance();
+	  Calendar from5 = Calendar.getInstance();
+	  
 	  Calendar to = Calendar.getInstance();
 	  Calendar cal = Calendar.getInstance();
 	  
-	  from.add(Calendar.YEAR, -1000);
+	  fromAll.add(Calendar.YEAR, -1000);
+	  from1.add(Calendar.YEAR, -1);
+	  from2.add(Calendar.YEAR, -2);
+	  from5.add(Calendar.YEAR, -5);
+	  
 	  //Stock apple = YahooFinance.get("AAPL", from, to, Interval.DAILY);
 	  Stock apple = YahooFinance.get("AAPL");
-	  List<HistoricalQuote> appleHistory = apple.getHistory(from, to, Interval.DAILY);
+	  List<HistoricalQuote> appleHistory = apple.getHistory(from2, to, Interval.DAILY);
 	  
 	  for(int x = 0; x < appleHistory.size(); x++)
 	  {
