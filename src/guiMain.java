@@ -93,7 +93,7 @@ public class guiMain {
 		
 		// Basic window
 		window = new JFrame("PROFITS R' US STOCK ANALYSIS");
-		window.setSize(699, 699);
+		window.setSize(1000, 699);
 		window.getContentPane().setBackground(Color.DARK_GRAY);
 		window.getContentPane().setLayout(null);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -103,7 +103,7 @@ public class guiMain {
 		search = new JTextField();
 		search.setColumns(15);
 		search.setSize(search.getPreferredSize());
-		search.setLocation(418, 11);
+		search.setLocation(725, 10);
 		search.setToolTipText("Enter stock");
 		search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
@@ -170,7 +170,7 @@ public class guiMain {
 		// Search button
 		searchBut = new JButton("Search");
 		searchBut.setSize(searchBut.getPreferredSize());
-		searchBut.setLocation(603, 10);
+		searchBut.setLocation(900, 10);
 		searchBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
@@ -223,7 +223,7 @@ public class guiMain {
 
 		// Have another JTabbedPane the main one will encap the one below
 		JTabbedPane main = new JTabbedPane(JTabbedPane.TOP);
-		main.setBounds(20, 52, 653, 607);
+		main.setBounds(20, 52, 950, 607);
 		window.getContentPane().add(main);
 
 		JPanel main2 = new JPanel();
@@ -277,7 +277,7 @@ public class guiMain {
 
 		// Tabs
 		JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP);
-		tabs.setBounds(10, 0, 628, 568);
+		tabs.setBounds(10, 0, 920, 568);
 		main1.add(tabs);
 
 		JPanel tab1 = new JPanel();
@@ -285,15 +285,15 @@ public class guiMain {
 		JPanel insideTab1 = new JPanel();
 
 		insideTab1.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		insideTab1.setBounds(0, 0, 619, 496);
+		insideTab1.setBounds(0, 0, 910, 496);
 		
 		 Graph gPanel = new Graph(g.createAndShowGui(0,0, closeArray, dateArray));
 		 //System.out.println(g.createAndShowGui(0,0)); 
-		 gPanel.setBounds(10, 20, 600, 445);
+		 gPanel.setBounds(10, 20, 875, 445);
 		 insideTab1.add(window.getContentPane().add(gPanel));
 		
 		 JLabel Axis = new JLabel("Price vs. Days");
-		 Axis.setBounds(271, 470 ,106,14);
+		 Axis.setBounds(425, 470 ,106,14);
 		insideTab1.add(Axis);
 		 
 		 
@@ -306,7 +306,7 @@ public class guiMain {
 		days.addItem("200 day");
 		days.setBounds(300, 501, 108, 20);
 		JLabel dayLabel = new JLabel("Moving Avg:");
-		dayLabel.setBounds(200,504,100,14);
+		dayLabel.setBounds(225,504,100,14);
 		tab1.add(dayLabel);
 		tab1.add(days);
 		
@@ -323,7 +323,7 @@ public class guiMain {
 		
 		graphButton = new JButton("Generate graph");
 		graphButton.setSize(graphButton.getPreferredSize());
-		graphButton.setLocation(470, 495);
+		graphButton.setLocation(775, 495);
 
 		graphButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -424,7 +424,7 @@ public class guiMain {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}*/
-				gPanel.setBounds(10, 20, 600, 450);
+				gPanel.setBounds(10, 20, 875, 450);
 				insideTab1.add(window.getContentPane().add(gPanel));
 				
 				//insideTab1.repaint();
