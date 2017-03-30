@@ -103,7 +103,7 @@ public class guiMain {
 		search = new JTextField();
 		search.setColumns(15);
 		search.setSize(search.getPreferredSize());
-		search.setLocation(725, 10);
+		search.setLocation(693, 10);
 		search.setToolTipText("Enter stock");
 		search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
@@ -153,9 +153,9 @@ public class guiMain {
 		});
 		window.getContentPane().add(search);
 		
-		logoutButton = new JButton("Logout");
+		logoutButton = new JButton("Log out");
 		logoutButton.setSize(logoutButton.getPreferredSize());
-		logoutButton.setLocation(130, 7);
+		logoutButton.setLocation(132, 7);
 		
 		logoutButton.addActionListener(new ActionListener() 
 		{
@@ -170,7 +170,7 @@ public class guiMain {
 		// Search button
 		searchBut = new JButton("Search");
 		searchBut.setSize(searchBut.getPreferredSize());
-		searchBut.setLocation(900, 10);
+		searchBut.setLocation(883, 10);
 		searchBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
@@ -323,7 +323,7 @@ public class guiMain {
 		
 		graphButton = new JButton("Generate graph");
 		graphButton.setSize(graphButton.getPreferredSize());
-		graphButton.setLocation(775, 495);
+		graphButton.setLocation(760, 495);
 
 		graphButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -490,7 +490,7 @@ public class guiMain {
 			}
 		}
 		
-		comboBox.setBounds(20, 11, 108, 20);
+		comboBox.setBounds(25, 11, 108, 20);
 		window.getContentPane().add(comboBox);
 
 		window.setResizable(false);

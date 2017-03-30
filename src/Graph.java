@@ -109,7 +109,7 @@ public class Graph extends JPanel {
         }
 
         //ADDED
-        int division = 7;
+        int division = 11;
         
         Calendar cal = Calendar.getInstance();
         
