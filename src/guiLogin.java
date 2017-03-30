@@ -1,11 +1,15 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +31,7 @@ public class guiLogin {
 	JLabel userName;
 	JLabel passWord;
 	JButton loginButton;
+	JButton createAcc;
 	
 	guiLogin() {
 
@@ -59,6 +64,8 @@ public class guiLogin {
 				String user = userField.getText();
 				String pass = passField.getText();
 				
+				
+				
 				//check var user with text file user( same for pass)
 				String filename = "loginCredentials/user.txt";
 				String filename2 = "loginCredentials/pass.txt";
@@ -84,6 +91,8 @@ public class guiLogin {
 					{
 						passList.add(line2);
 					}
+					
+					
 					
 					buff.close();
 					buff2.close();
@@ -153,6 +162,9 @@ public class guiLogin {
 				// TODO Auto-generated method stub
 				String user = userField.getText();
 				String pass = passField.getText();
+				
+				System.out.println(user);
+				System.out.println(pass);
 				
 				//check var user with text file user( same for pass)
 				String filename = "loginCredentials/user.txt";
@@ -332,6 +344,39 @@ public class guiLogin {
 			}
 		});
 		window.add(loginButton);
+		
+		
+		createAcc = new JButton("Create Account");
+		createAcc.setSize(loginButton.getPreferredSize());
+		createAcc.setLocation(163, 170);
+		createAcc.setSize(200,28);
+		createAcc.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) {
+				String user = userField.getText();
+				String pass = passField.getText();
+				
+				try{
+					PrintWriter userWrite = new PrintWriter(new BufferedWriter(new FileWriter("loginCredentials/user.txt",true)));
+					PrintWriter passWrite = new PrintWriter(new BufferedWriter(new FileWriter("loginCredentials/pass.txt",true)));
+					userWrite.println();
+					passWrite.println();
+					userWrite.println(user);
+					passWrite.println(pass);
+					userWrite.close();
+					passWrite.close();
+					JOptionPane.showMessageDialog(window, "Successfully registered!");
+					window.dispose();
+					new guiLogin();
+					
+				}
+				catch(IOException e){
+					JOptionPane.showMessageDialog(window, "Error Registering!");
+				}
+				
+			}
+		});
+		window.add(createAcc);
 
 		window.setResizable(false);
 		window.setVisible(true);
