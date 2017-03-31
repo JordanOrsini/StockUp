@@ -78,18 +78,21 @@ public class Graph extends JPanel {
         List<Point> graphPoints = new ArrayList<>();
         List<Point> graphPoints2 = new ArrayList<>();
         List<Point> graphPoints3 = new ArrayList<>();
+        List<Point> graphPoints4 = new ArrayList<>();
 
         for (int i = 0; i < scores.size(); i++) 
         {
             int x1 = (int) (i * xScale + padding + labelPadding);
             int y1 = (int) ((getMaxScore() - scores.get(i)) * yScale + padding);
+            int y2 = 0;
+            int y3 = 0;
             graphPoints.add(new Point(x1, y1));
            
             if(scores2.size() > 0)
             {
             	if(scores2.get(i) != 0)
             	{
-            		int y2 = (int) ((getMaxScore() - scores2.get(i)) * yScale + padding);
+            		y2 = (int) ((getMaxScore() - scores2.get(i)) * yScale + padding);
             		graphPoints2.add(new Point(x1, y2));
             	}
             }
@@ -98,8 +101,20 @@ public class Graph extends JPanel {
             {
             	if(scores3.get(i) != 0)
             	{
-            		int y3 = (int) ((getMaxScore() - scores3.get(i)) * yScale + padding);
+            		y3 = (int) ((getMaxScore() - scores3.get(i)) * yScale + padding);
             		graphPoints3.add(new Point(x1, y3));
+            		
+            		if(scores2.size() > 0)
+            		{
+            			if(scores2.get(i) != 0)
+            			{
+            				//if(y2 == y3)
+            				if(almostEqual(y2, y3, 2.5) == true)
+            				{
+            					graphPoints4.add(new Point(x1,y3));
+            				}
+            			}
+            		}
             	}
             }
         }
@@ -247,6 +262,29 @@ public class Graph extends JPanel {
         	}*/
         }
         
+        //INTERSECTION POINTS
+        	/*g2.setColor(Color.GREEN);
+        	g2.setStroke(GRAPH_STROKE);
+        	for (int i = 0; i < graphPoints4.size() - 1; i++) 
+        	{
+        		int x1 = graphPoints4.get(i).x;
+        		int y1 = graphPoints4.get(i).y;
+        		int x2 = graphPoints4.get(i + 1).x;
+        		int y2 = graphPoints4.get(i + 1).y;
+        		g2.drawLine(x1, y1, x2, y2);
+        	}*/
+        
+        	g2.setStroke(oldStroke);
+        	g2.setColor(Color.GREEN);
+        	for (int i = 0; i < graphPoints4.size(); i++) 
+        	{
+        		int x = graphPoints4.get(i).x - pointWidth / 2;
+        		int y = graphPoints4.get(i).y - pointWidth / 2;
+        		int ovalW = pointWidth;
+        		int ovalH = pointWidth;
+        		g2.fillOval(x, y, ovalW, ovalH);
+        	}
+        
         scores.clear();
         scores2.clear();
         scores3.clear();
@@ -277,6 +315,11 @@ public class Graph extends JPanel {
     public List<Double> getScores() {
         return scores;
     }
+    
+	public static boolean almostEqual(double a, double b, double eps)
+	{
+	    return Math.abs(a-b) < eps;
+	}
     
     
    //  Graph() {
