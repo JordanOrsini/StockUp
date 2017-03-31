@@ -78,7 +78,8 @@ public class Graph extends JPanel {
         List<Point> graphPoints = new ArrayList<>();
         List<Point> graphPoints2 = new ArrayList<>();
         List<Point> graphPoints3 = new ArrayList<>();
-        List<Point> graphPoints4 = new ArrayList<>();
+        List<Point> graphPointsBuy = new ArrayList<>();
+        List<Point> graphPointsSell = new ArrayList<>();
 
         for (int i = 0; i < scores.size(); i++) 
         {
@@ -111,7 +112,15 @@ public class Graph extends JPanel {
             				//if(y2 == y3)
             				if(almostEqual(y2, y3, 2.5) == true)
             				{
-            					graphPoints4.add(new Point(x1,y3));
+            					if(scores2.get(i-1) > scores3.get(i-1))
+            					{
+            						graphPointsSell.add(new Point(x1,y2));
+            					}
+            					else
+            					{
+            						graphPointsBuy.add(new Point(x1,y3));
+            					}
+            					
             				}
             			}
             		}
@@ -262,24 +271,47 @@ public class Graph extends JPanel {
         	}*/
         }
         
-        //INTERSECTION POINTS
+        //BUY POINTS
         	/*g2.setColor(Color.GREEN);
         	g2.setStroke(GRAPH_STROKE);
-        	for (int i = 0; i < graphPoints4.size() - 1; i++) 
+        	for (int i = 0; i < graphPointsBuy.size() - 1; i++) 
         	{
-        		int x1 = graphPoints4.get(i).x;
-        		int y1 = graphPoints4.get(i).y;
-        		int x2 = graphPoints4.get(i + 1).x;
-        		int y2 = graphPoints4.get(i + 1).y;
+        		int x1 = graphPointsBuy.get(i).x;
+        		int y1 = graphPointsBuy.get(i).y;
+        		int x2 = graphPointsBuy.get(i + 1).x;
+        		int y2 = graphPointsBuy.get(i + 1).y;
         		g2.drawLine(x1, y1, x2, y2);
         	}*/
         
         	g2.setStroke(oldStroke);
         	g2.setColor(Color.GREEN);
-        	for (int i = 0; i < graphPoints4.size(); i++) 
+        	for (int i = 0; i < graphPointsBuy.size(); i++) 
         	{
-        		int x = graphPoints4.get(i).x - pointWidth / 2;
-        		int y = graphPoints4.get(i).y - pointWidth / 2;
+        		int x = graphPointsBuy.get(i).x - pointWidth / 2;
+        		int y = graphPointsBuy.get(i).y - pointWidth / 2;
+        		int ovalW = pointWidth;
+        		int ovalH = pointWidth;
+        		g2.fillOval(x, y, ovalW, ovalH);
+        	}
+        	
+        	//SELL POINTS
+        	/*g2.setColor(Color.RED);
+        	g2.setStroke(GRAPH_STROKE);
+        	for (int i = 0; i < graphPointsSell.size() - 1; i++) 
+        	{
+        		int x1 = graphPointsSell.get(i).x;
+        		int y1 = graphPointsSell.get(i).y;
+        		int x2 = graphPointsSell.get(i + 1).x;
+        		int y2 = graphPointsSell.get(i + 1).y;
+        		g2.drawLine(x1, y1, x2, y2);
+        	}*/
+        
+        	g2.setStroke(oldStroke);
+        	g2.setColor(Color.RED);
+        	for (int i = 0; i < graphPointsSell.size(); i++) 
+        	{
+        		int x = graphPointsSell.get(i).x - pointWidth / 2;
+        		int y = graphPointsSell.get(i).y - pointWidth / 2;
         		int ovalW = pointWidth;
         		int ovalH = pointWidth;
         		g2.fillOval(x, y, ovalW, ovalH);
