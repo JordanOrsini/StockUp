@@ -45,6 +45,7 @@ public class guiMain {
 	JTextField search;
 	JButton searchBut;
 	JButton logoutButton;
+	JButton dowButton;
 	JButton graphButton;
 	Graph g = new Graph();
 	private JTable table;
@@ -52,6 +53,7 @@ public class guiMain {
 	String filename;
 	Stock myStock;
 	List<HistoricalQuote> stockHistory;
+	boolean dowActive;
 
 	guiMain(String user) throws NumberFormatException, IOException, ParseException 
 	{
@@ -80,17 +82,55 @@ public class guiMain {
 		search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				String user = search.getText().toUpperCase();
+				String userText = search.getText().toUpperCase();
 
 				try
 				{
-					Stock myStock = YahooFinance.get(user);
+					Stock myStock = YahooFinance.get(userText);
 					boolean found = false;
 					if(myStock.getQuote().getPrice() != null)
 					{
-						for(int x = 0; x < comboBox.getItemCount(); x++)
+						/*for(int x = 0; x < comboBox.getItemCount(); x++)
 						{
-							if(comboBox.getItemAt(x).equals(user))
+							if(comboBox.getItemAt(x).equals(userText))
+							{
+								found = true;
+							}
+						}*/
+						
+						filename = "userProfiles/" + user + ".txt";
+						
+						ArrayList<String> stockList = new ArrayList<String>();
+
+						FileReader file;
+						
+						try
+						{
+							file = new FileReader(filename);
+							BufferedReader buff = new BufferedReader(file);
+							
+							String line = null;
+							
+							while (((line = buff.readLine()) != null))
+							{
+								stockList.add(line);
+							}
+							
+							buff.close();
+						}
+						catch (FileNotFoundException e) 
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) 
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						for(int x = 0; x < stockList.size(); x++)
+						{
+							if(stockList.get(x).equals(userText))
 							{
 								found = true;
 							}
@@ -99,10 +139,10 @@ public class guiMain {
 						if(found == false)
 						{
 							JOptionPane.showMessageDialog(window, "Stock added!");
-							comboBox.addItem(user);
+							comboBox.addItem(userText);
 							
 							BufferedWriter out = new BufferedWriter(new FileWriter(filename, true));
-							out.write("\n" + user);
+							out.write("\n" + userText);
 							out.close();
 						}
 						else
@@ -127,7 +167,7 @@ public class guiMain {
 		
 		logoutButton = new JButton("Log out");
 		logoutButton.setSize(logoutButton.getPreferredSize());
-		logoutButton.setLocation(132, 7);
+		logoutButton.setLocation(202, 7);
 		
 		logoutButton.addActionListener(new ActionListener() 
 		{
@@ -139,6 +179,102 @@ public class guiMain {
 		});
 		window.getContentPane().add(logoutButton);
 		
+		dowActive = false;
+		dowButton = new JButton("DOW");
+		dowButton.setSize(dowButton.getPreferredSize());
+		dowButton.setLocation(132, 7);
+		
+		dowButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				if(dowActive == false)
+				{
+					dowButton.setText("History");
+					comboBox.removeAllItems();
+					
+					comboBox.addItem("MMM");
+					comboBox.addItem("AXP");
+					comboBox.addItem("AAPL");
+					comboBox.addItem("BA");
+					comboBox.addItem("CAT");
+					comboBox.addItem("CVX");
+					comboBox.addItem("CSCO");
+					comboBox.addItem("KO");
+					comboBox.addItem("DIS");
+					comboBox.addItem("DD");
+					comboBox.addItem("XOM");
+					comboBox.addItem("GE");
+					comboBox.addItem("GS");
+					comboBox.addItem("HD");
+					comboBox.addItem("IBM");
+					comboBox.addItem("INTC");
+					comboBox.addItem("JNJ");
+					comboBox.addItem("JPM");
+					comboBox.addItem("MCD");
+					comboBox.addItem("MRK");
+					comboBox.addItem("MSFT");
+					comboBox.addItem("NKE");
+					comboBox.addItem("PFE");
+					comboBox.addItem("PG");
+					comboBox.addItem("TRV");
+					comboBox.addItem("UTX");
+					comboBox.addItem("UNH");
+					comboBox.addItem("VZ");
+					comboBox.addItem("V");
+					comboBox.addItem("WMT");
+					
+					dowActive = true;
+				}
+				else
+				{
+					dowButton.setText("DOW");
+					comboBox.removeAllItems();
+					
+					filename = "userProfiles/" + user + ".txt";
+					
+					ArrayList<String> stockList = new ArrayList<String>();
+
+					FileReader file;
+					
+					try
+					{
+						file = new FileReader(filename);
+						BufferedReader buff = new BufferedReader(file);
+						
+						String line = null;
+						
+						while (((line = buff.readLine()) != null))
+						{
+							stockList.add(line);
+						}
+						
+						buff.close();
+					}
+					catch (FileNotFoundException e) 
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) 
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					if(stockList.size() > 0)
+					{
+						for(int boxSize = 1; boxSize < stockList.size(); boxSize++)
+						{
+							comboBox.addItem(stockList.get(boxSize));
+						}
+					}
+					
+					dowActive = false;
+				}
+			}
+		});
+		window.getContentPane().add(dowButton);
+		
 		// Search button
 		searchBut = new JButton("Search");
 		searchBut.setSize(searchBut.getPreferredSize());
@@ -146,17 +282,55 @@ public class guiMain {
 		searchBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				String user = search.getText().toUpperCase();
+				String userText = search.getText().toUpperCase();
 
 				try
 				{
-					Stock myStock = YahooFinance.get(user);
+					Stock myStock = YahooFinance.get(userText);
 					boolean found = false;
 					if(myStock.getQuote().getPrice() != null)
 					{
-						for(int x = 0; x < comboBox.getItemCount(); x++)
+						/*for(int x = 0; x < comboBox.getItemCount(); x++)
 						{
-							if(comboBox.getItemAt(x).equals(user))
+							if(comboBox.getItemAt(x).equals(userText))
+							{
+								found = true;
+							}
+						}*/
+						
+						filename = "userProfiles/" + user + ".txt";
+						
+						ArrayList<String> stockList = new ArrayList<String>();
+
+						FileReader file;
+						
+						try
+						{
+							file = new FileReader(filename);
+							BufferedReader buff = new BufferedReader(file);
+							
+							String line = null;
+							
+							while (((line = buff.readLine()) != null))
+							{
+								stockList.add(line);
+							}
+							
+							buff.close();
+						}
+						catch (FileNotFoundException e) 
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) 
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						for(int x = 0; x < stockList.size(); x++)
+						{
+							if(stockList.get(x).equals(userText))
 							{
 								found = true;
 							}
@@ -165,10 +339,10 @@ public class guiMain {
 						if(found == false)
 						{
 							JOptionPane.showMessageDialog(window, "Stock added!");
-							comboBox.addItem(user);
+							comboBox.addItem(userText);
 							
 							BufferedWriter out = new BufferedWriter(new FileWriter(filename, true));
-							out.write("\n" + user);
+							out.write("\n" + userText);
 							out.close();
 						}
 						else
@@ -314,6 +488,80 @@ public class guiMain {
 				
 				if(comboBox.getItemCount() != 0)
 				{
+					if(dowActive == true)
+					{
+						filename = "userProfiles/" + user + ".txt";
+						
+						ArrayList<String> stockList = new ArrayList<String>();
+
+						FileReader file;
+						
+						try
+						{
+							file = new FileReader(filename);
+							BufferedReader buff = new BufferedReader(file);
+							
+							String line = null;
+							
+							while (((line = buff.readLine()) != null))
+							{
+								stockList.add(line);
+							}
+							
+							buff.close();
+						}
+						catch (FileNotFoundException e) 
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) 
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						boolean found = false;
+						
+						for(int x = 0; x < stockList.size(); x++)
+						{
+							if(stockList.get(x).equals(comboBox.getSelectedItem()))
+							{
+								found = true;
+							}
+						}
+						
+						if(found == false)
+						{
+							//JOptionPane.showMessageDialog(window, "Stock added!");
+							//comboBox.addItem(userText);
+							
+							BufferedWriter out = null;
+							try {
+								out = new BufferedWriter(new FileWriter(filename, true));
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							try {
+								out.write("\n" + comboBox.getSelectedItem());
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							try {
+								out.close();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+						/*else
+						{
+							JOptionPane.showMessageDialog(window, "Duplicate stock!");
+						}*/
+						
+					}
+					
 					ArrayList<String> dateArray = new ArrayList<String>();
 				
 					ArrayList<Double> closeArray = new ArrayList<Double>();
