@@ -116,7 +116,7 @@ public class Graph extends JPanel {
             					{
             						graphPointsSell.add(new Point(x1,y2));
             					}
-            					else
+            					else if(scores2.get(i-1) < scores3.get(i-1))
             					{
             						graphPointsBuy.add(new Point(x1,y3));
             					}
