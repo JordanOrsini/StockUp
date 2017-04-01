@@ -115,11 +115,11 @@ public class Graph extends JPanel {
             				{
             					if(scores2.get(i-1) > scores3.get(i-1))
             					{
-            						graphPointsSell.add(new Point(x1,y2));
+            						graphPointsSell.add(new Point(x1,y2 - 1));
             					}
             					else if(scores2.get(i-1) < scores3.get(i-1))
             					{
-            						graphPointsBuy.add(new Point(x1,y3));
+            						graphPointsBuy.add(new Point(x1,y3 + 1));
             						
             					}
             					
@@ -293,9 +293,9 @@ public class Graph extends JPanel {
         		int y = graphPointsBuy.get(i).y - pointWidth / 2;
         		int ovalW = pointWidth;
         		int ovalH = pointWidth;
-        		g2.fillOval(x, y, ovalW, ovalH);
+        		//g2.fillOval(x, y, ovalW, ovalH);
         		// g2.drawPolygon(new int[] {10, 20, 30}, new int[] {100, 20, 100}, 3);
-        		 g2.fillPolygon(new int[] {x+5, x, x-5}, new int[] {y-25, y, y-25}, 3);
+        		 g2.fillPolygon(new int[] {graphPointsBuy.get(i).x+5, graphPointsBuy.get(i).x, graphPointsBuy.get(i).x-5}, new int[] {graphPointsBuy.get(i).y+25, graphPointsBuy.get(i).y, graphPointsBuy.get(i).y+25}, 3);
         	}
         	
         	//SELL POINTS
@@ -318,8 +318,9 @@ public class Graph extends JPanel {
         		int y = graphPointsSell.get(i).y - pointWidth / 2;
         		int ovalW = pointWidth;
         		int ovalH = pointWidth;
-        		g2.fillOval(x, y, ovalW, ovalH);
-        		g2.fillPolygon(new int[] {x+5, x, x-5}, new int[] {y+25, y, y+25}, 3);
+        		//g2.fillOval(x, y, ovalW, ovalH);
+        		//g2.fillPolygon(new int[] {x+5, x, x-5}, new int[] {y+25, y, y+25}, 3);
+        		g2.fillPolygon(new int[] {graphPointsSell.get(i).x+5, graphPointsSell.get(i).x, graphPointsSell.get(i).x-5}, new int[] {graphPointsSell.get(i).y-25, graphPointsSell.get(i).y, graphPointsSell.get(i).y-25}, 3);
         	}
         
         scores.clear();

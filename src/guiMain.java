@@ -396,7 +396,7 @@ public class guiMain {
 
 		JPanel box1 = new JPanel();
 		box1.setBounds(11, 21, 453, 281);
-		box1.setBorder(new TitledBorder(null, "Welcome " + user + " ! Todays date is "+day+"/"+month+"/"+year, TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		box1.setBorder(new TitledBorder(null, "Welcome " + user + "! Todays date is "+day+"/"+month+"/"+year, TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		main2.add(box1);
 		box1.setLayout(null);
 		/*
@@ -476,7 +476,7 @@ public class guiMain {
 		 gPanel.setBounds(10, 20, 875, 445);
 		 insideTab1.add(window.getContentPane().add(gPanel));
 		
-		 JLabel Axis = new JLabel("Price($)");
+		 JLabel Axis = new JLabel("Price ($)");
 		 Axis.setBounds(59, 0 ,98,14);
 		insideTab1.add(Axis);
 		 
@@ -787,8 +787,8 @@ public class guiMain {
 		tab1.add(insideTab1);
 		insideTab1.setLayout(null);
 		
-		JLabel Axis2 = new JLabel("Time(Days)");
-		Axis2.setBounds(789, 471, 73, 14);
+		JLabel Axis2 = new JLabel("Time (Days)");
+		Axis2.setBounds(789, 471, 74, 14);
 		insideTab1.add(Axis2);
 		
 		JLabel Short = new JLabel("Orange-Line");
@@ -855,7 +855,7 @@ public class guiMain {
 		JTextPane txtPane = new JTextPane();
 		txtPane.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		txtPane.setBounds(10, 27, 433, 243);
-		txtPane.setText("BLAHBLAH \n Stocks: " +stockList);
+		txtPane.setText("BLAHBLAH \n Stocks: " + stockList.subList(1, stockList.size()));
 		box1.add(txtPane);
 		
 		comboBox.setBounds(25, 11, 108, 20);
