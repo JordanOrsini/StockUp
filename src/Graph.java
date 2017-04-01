@@ -89,6 +89,7 @@ public class Graph extends JPanel {
             int y3 = 0;
             graphPoints.add(new Point(x1, y1));
            
+           
             if(scores2.size() > 0)
             {
             	if(scores2.get(i) != 0)
@@ -119,6 +120,7 @@ public class Graph extends JPanel {
             					else if(scores2.get(i-1) < scores3.get(i-1))
             					{
             						graphPointsBuy.add(new Point(x1,y3));
+            						
             					}
             					
             				}
@@ -292,6 +294,8 @@ public class Graph extends JPanel {
         		int ovalW = pointWidth;
         		int ovalH = pointWidth;
         		g2.fillOval(x, y, ovalW, ovalH);
+        		// g2.drawPolygon(new int[] {10, 20, 30}, new int[] {100, 20, 100}, 3);
+        		 g2.fillPolygon(new int[] {x+5, x, x-5}, new int[] {y-25, y, y-25}, 3);
         	}
         	
         	//SELL POINTS
@@ -315,6 +319,7 @@ public class Graph extends JPanel {
         		int ovalW = pointWidth;
         		int ovalH = pointWidth;
         		g2.fillOval(x, y, ovalW, ovalH);
+        		g2.fillPolygon(new int[] {x+5, x, x-5}, new int[] {y+25, y, y+25}, 3);
         	}
         
         scores.clear();

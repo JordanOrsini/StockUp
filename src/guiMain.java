@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,6 +25,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 import javax.swing.table.DefaultTableModel;
 
 import yahoofinance.Stock;
@@ -36,7 +38,15 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map; 
+import java.util.Map;
+import javax.swing.SwingConstants;
+import java.awt.FlowLayout;
+import java.awt.Panel;
+import javax.swing.BoxLayout;
+import java.awt.Component;
+import javax.swing.border.EtchedBorder;
+import javax.swing.JTextPane;
+import java.awt.Dimension; 
 
 public class guiMain {
 	
@@ -47,6 +57,7 @@ public class guiMain {
 	JButton logoutButton;
 	JButton dowButton;
 	JButton graphButton;
+	JLabel clock = new JLabel("Clock");
 	Graph g = new Graph();
 	private JTable table;
 	JComboBox<String> comboBox;
@@ -76,8 +87,8 @@ public class guiMain {
 		// Stock Searcher
 		search = new JTextField();
 		search.setColumns(15);
-		search.setSize(search.getPreferredSize());
-		search.setLocation(693, 10);
+		search.setSize(new Dimension(126, 22));
+		search.setLocation(758, 19);
 		search.setToolTipText("Enter stock");
 		search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
@@ -166,8 +177,8 @@ public class guiMain {
 		window.getContentPane().add(search);
 		
 		logoutButton = new JButton("Log out");
-		logoutButton.setSize(logoutButton.getPreferredSize());
-		logoutButton.setLocation(202, 7);
+		logoutButton.setSize(new Dimension(76, 21));
+		logoutButton.setLocation(237, 10);
 		
 		logoutButton.addActionListener(new ActionListener() 
 		{
@@ -181,8 +192,8 @@ public class guiMain {
 		
 		dowActive = false;
 		dowButton = new JButton("DOW");
-		dowButton.setSize(dowButton.getPreferredSize());
-		dowButton.setLocation(132, 7);
+		dowButton.setSize(new Dimension(84, 21));
+		dowButton.setLocation(143, 10);
 		
 		dowButton.addActionListener(new ActionListener() 
 		{
@@ -277,8 +288,8 @@ public class guiMain {
 		
 		// Search button
 		searchBut = new JButton("Search");
-		searchBut.setSize(searchBut.getPreferredSize());
-		searchBut.setLocation(883, 10);
+		searchBut.setSize(new Dimension(76, 22));
+		searchBut.setLocation(894, 19);
 		searchBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
@@ -371,24 +382,51 @@ public class guiMain {
 		JTabbedPane main = new JTabbedPane(JTabbedPane.TOP);
 		main.setBounds(20, 52, 950, 607);
 		window.getContentPane().add(main);
-
+		
+		Calendar cal= new GregorianCalendar();
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		int month = (1+ cal.get(Calendar.MONTH));
+		int year = cal.get(Calendar.YEAR);
+		
 		JPanel main2 = new JPanel();
 		main.addTab("Home", null, main2, null);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(150, 0, 628, 557);
-		JLabel label1 = new JLabel();
-		String path = "img/img.jpg";
-		ImageIcon img = new ImageIcon(path);
 
-		label1.setIcon(img);
-		label1.setBounds(10,10,50,50);
-		panel.add(label1);
-		
-		
-		main2.add(panel);
+		// main2.add(panel);
 		main2.setLayout(null);
 
+		JPanel box1 = new JPanel();
+		box1.setBounds(11, 21, 453, 281);
+		box1.setBorder(new TitledBorder(null, "Welcome " + user + " ! Todays date is "+day+"/"+month+"/"+year, TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		main2.add(box1);
+		box1.setLayout(null);
+		/*
+		JTextPane txtPane = new JTextPane();
+		txtPane.setBounds(10, 27, 433, 243);
+		txtPane.setText("BLAHBLAH \n Stocks: ");
+		box1.add(txtPane);
+		*/
+		JPanel box2 = new JPanel();
+		box2.setBounds(474, 21, 461, 535);
+		main2.add(box2);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		String path = "img/img.jpg";
+		ImageIcon img = new ImageIcon(path);
+		lblNewLabel.setIcon(img);
+		lblNewLabel.setBounds(10,10,50,50);
+		box2.add(lblNewLabel);
+		
+		JPanel box3 = new JPanel();
+		box3.setBorder(new TitledBorder(null, "Quick Guide", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
+		box3.setBounds(11, 313, 453, 228);
+		main2.add(box3);
+		box3.setLayout(null);
+		
+		JTextPane txtpane2 = new JTextPane();
+		txtpane2.setText("AEG \n dfeqwf");
+		txtpane2.setBounds(10, 26, 433, 191);
+		box3.add(txtpane2);
+		
 		JPanel main1 = new JPanel();
 		main.addTab("Stock Data", null, main1, null);
 		main1.setLayout(null);
@@ -430,7 +468,7 @@ public class guiMain {
 		tabs.addTab(user, null, tab1, null);
 		JPanel insideTab1 = new JPanel();
 
-		insideTab1.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		insideTab1.setBorder(null);
 		insideTab1.setBounds(0, 0, 910, 496);
 		
 		 Graph gPanel = new Graph(g.createAndShowGui(0,0, closeArray, dateArray, 0));
@@ -438,8 +476,8 @@ public class guiMain {
 		 gPanel.setBounds(10, 20, 875, 445);
 		 insideTab1.add(window.getContentPane().add(gPanel));
 		
-		 JLabel Axis = new JLabel("Price vs. Days");
-		 Axis.setBounds(425, 470 ,106,14);
+		 JLabel Axis = new JLabel("Price($)");
+		 Axis.setBounds(59, 0 ,98,14);
 		insideTab1.add(Axis);
 		 
 		 
@@ -748,6 +786,20 @@ public class guiMain {
 
 		tab1.add(insideTab1);
 		insideTab1.setLayout(null);
+		
+		JLabel Axis2 = new JLabel("Time(Days)");
+		Axis2.setBounds(789, 471, 73, 14);
+		insideTab1.add(Axis2);
+		
+		JLabel Short = new JLabel("Orange-Line");
+		Short.setForeground(new Color(255, 153, 0));
+		Short.setBounds(366, 482, 82, 14);
+		insideTab1.add(Short);
+		
+		JLabel Long = new JLabel("Purple-Line");
+		Long.setForeground(new Color(204, 51, 204));
+		Long.setBounds(621, 482, 82, 14);
+		insideTab1.add(Long);
 
 		tab1.setLayout(null);
 
@@ -800,6 +852,12 @@ public class guiMain {
 			}
 		}
 		
+		JTextPane txtPane = new JTextPane();
+		txtPane.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		txtPane.setBounds(10, 27, 433, 243);
+		txtPane.setText("BLAHBLAH \n Stocks: " +stockList);
+		box1.add(txtPane);
+		
 		comboBox.setBounds(25, 11, 108, 20);
 		window.getContentPane().add(comboBox);
 
@@ -807,12 +865,11 @@ public class guiMain {
 
 	}
 
-
 	// Main method
 	public static void main(String[] args) throws NumberFormatException, IOException, ParseException { // TODO Auto-generated
 
 		new guiMain("admin");
+		
 
 	}
-	
 }
