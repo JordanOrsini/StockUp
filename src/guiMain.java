@@ -63,6 +63,7 @@ public class guiMain {
 	JComboBox<String> comboBox;
 	String filename;
 	Stock myStock;
+	Stock SD;
 	List<HistoricalQuote> stockHistory;
 	boolean dowActive;
 
@@ -88,7 +89,7 @@ public class guiMain {
 		search = new JTextField();
 		search.setColumns(15);
 		search.setSize(new Dimension(126, 22));
-		search.setLocation(758, 19);
+		search.setLocation(758, 9);
 		search.setToolTipText("Enter stock");
 		search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
@@ -289,7 +290,7 @@ public class guiMain {
 		// Search button
 		searchBut = new JButton("Search");
 		searchBut.setSize(new Dimension(76, 22));
-		searchBut.setLocation(894, 19);
+		searchBut.setLocation(894, 9);
 		searchBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
@@ -472,6 +473,7 @@ public class guiMain {
 		insideTab1.setBounds(0, 0, 910, 496);
 		
 		 Graph gPanel = new Graph(g.createAndShowGui(0,0, closeArray, dateArray, 0));
+		 gPanel.setBorder(new TitledBorder(null, "<insertTitleHere>", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		 //System.out.println(g.createAndShowGui(0,0)); 
 		 gPanel.setBounds(10, 20, 875, 445);
 		 insideTab1.add(window.getContentPane().add(gPanel));
@@ -490,6 +492,7 @@ public class guiMain {
 		//days.addItem("200 day");
 		days.setBounds(350, 501, 108, 20);
 		JLabel dayLabel = new JLabel("Moving Avg [Short]:");
+		dayLabel.setForeground(new Color(255, 140, 0));
 		dayLabel.setBounds(225,504,130,14);
 		tab1.add(dayLabel);
 		tab1.add(days);
@@ -502,6 +505,7 @@ public class guiMain {
 		days2.addItem("200 day");
 		days2.setBounds(600, 501, 108, 20);
 		JLabel dayLabel2 = new JLabel("Moving Avg [Long]:");
+		dayLabel2.setForeground(new Color(147, 112, 219));
 		dayLabel2.setBounds(475,504,130,14);
 		tab1.add(dayLabel2);
 		tab1.add(days2);
@@ -790,16 +794,6 @@ public class guiMain {
 		JLabel Axis2 = new JLabel("Time (Days)");
 		Axis2.setBounds(789, 471, 74, 14);
 		insideTab1.add(Axis2);
-		
-		JLabel Short = new JLabel("Orange-Line");
-		Short.setForeground(new Color(255, 153, 0));
-		Short.setBounds(366, 482, 82, 14);
-		insideTab1.add(Short);
-		
-		JLabel Long = new JLabel("Purple-Line");
-		Long.setForeground(new Color(204, 51, 204));
-		Long.setBounds(621, 482, 82, 14);
-		insideTab1.add(Long);
 
 		tab1.setLayout(null);
 
@@ -852,11 +846,66 @@ public class guiMain {
 			}
 		}
 		
+		
+		
 		JTextPane txtPane = new JTextPane();
-		txtPane.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		txtPane.setBounds(10, 27, 433, 243);
-		txtPane.setText("BLAHBLAH \n Stocks: " + stockList.subList(1, stockList.size()));
+		txtPane.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtPane.setBounds(10, 27, 433, 120);
+		txtPane.setText("Blah\n Stocks: " + stockList.subList(1, stockList.size()));
 		box1.add(txtPane);
+		
+		ActionListener actionListener = new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+					
+				JTextPane txtPane2 = new JTextPane();
+				txtPane2.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				txtPane2.setBounds(10, 150, 433, 120);
+			
+			
+					
+					String stockofDay = (String)comboBox.getSelectedItem();
+					try {
+						
+						
+						if(stockofDay == null){
+							SD  = YahooFinance.get("AAPL");
+						}else{
+							SD= YahooFinance.get(stockofDay);
+						}
+							
+						
+						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				
+			
+			txtPane2.setText("BLAHBLAH \nStock price today: " +SD.getQuote().getPrice() 
+				+"\n Stock closed at: " +SD.getQuote().getPreviousClose()
+				+"\n Stock opened at: " +SD.getQuote().getOpen());
+		box1.add(txtPane2);
+			
+			
+			}
+			
+		};
+		comboBox.addActionListener(actionListener);
+		
+		
+		
+		
+		
+		
+	
+
+		
+		
+
+		
+		System.out.println();
 		
 		comboBox.setBounds(25, 11, 108, 20);
 		window.getContentPane().add(comboBox);
