@@ -46,8 +46,8 @@ public class guiLogin {
 		// Labels
 		userName = new JLabel("Username:");
 		passWord = new JLabel("Password:");
-		userName.setLocation(80, 60);
-		passWord.setLocation(80, 100);
+		userName.setLocation(110, 65);
+		passWord.setLocation(113, 105);
 		userName.setSize(userName.getPreferredSize());
 		passWord.setSize(passWord.getPreferredSize());
 		window.add(userName);
@@ -254,7 +254,7 @@ public class guiLogin {
 		// Button
 		loginButton = new JButton("Log in");
 		loginButton.setSize(loginButton.getPreferredSize());
-		loginButton.setLocation(176, 140);
+		loginButton.setLocation(176, 132);
 		loginButton.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) {
@@ -349,7 +349,7 @@ public class guiLogin {
 		
 		createAcc = new JButton("Register");
 		createAcc.setSize(createAcc.getPreferredSize());
-		createAcc.setLocation(253, 140);
+		createAcc.setLocation(257, 132);
 		createAcc.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) {

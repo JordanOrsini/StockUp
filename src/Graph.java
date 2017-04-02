@@ -224,7 +224,7 @@ public class Graph extends JPanel {
         if(scores2.size() > 0)
         {
         	//LINE 2 SHORT TERM MOVING AVERAGE
-        	g2.setColor(Color.orange);
+        	g2.setColor(Color.ORANGE);
         	g2.setStroke(GRAPH_STROKE);
         	for (int i = 0; i < graphPoints2.size() - 1; i++) 
         	{
