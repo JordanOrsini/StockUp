@@ -51,7 +51,6 @@ import java.awt.Dimension;
 public class guiMain {
 	
 	JFrame window;
-	JLabel userName;
 	JTextField search;
 	JButton searchBut;
 	JButton logoutButton;
@@ -467,6 +466,7 @@ public class guiMain {
 
 		JPanel tab1 = new JPanel();
 		tabs.addTab(user, null, tab1, null);
+	
 		JPanel insideTab1 = new JPanel();
 
 		insideTab1.setBorder(null);
@@ -798,13 +798,21 @@ public class guiMain {
 		tab1.setLayout(null);
 
 		JPanel tab2 = new JPanel();
-		//tabs.addTab("History", null, tab2, null);
+		tabs.addTab("Down30", null, tab2, null);
 		tab2.setLayout(null);
-
-		userName = new JLabel();//"*graph here");
-		userName.setLocation(10, 5);
-		userName.setSize(userName.getPreferredSize());
-		tab2.add(userName);
+		
+		JPanel dow30 = new JPanel();
+		dow30.setBounds(10, 11, 895, 518);
+		tab2.add(dow30);
+		
+		JLabel dow30Img = new JLabel("New label");
+		path = "img/finalLogo.jpg";
+		ImageIcon img2 = new ImageIcon(path);
+		 dow30Img.setIcon(img2);
+		 dow30Img.setBounds(0,0,20,20);
+		dow30.add(dow30Img);
+		
+		
 
 		comboBox = new JComboBox();
 		
