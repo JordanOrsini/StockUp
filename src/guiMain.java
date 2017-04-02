@@ -65,6 +65,8 @@ public class guiMain {
 	Stock SD;
 	List<HistoricalQuote> stockHistory;
 	boolean dowActive;
+	JTextPane txtPane = new JTextPane();
+	ArrayList<String> stockList;
 
 	guiMain(String user) throws NumberFormatException, IOException, ParseException 
 	{
@@ -87,8 +89,9 @@ public class guiMain {
 		// Stock Searcher
 		search = new JTextField();
 		search.setColumns(15);
-		search.setSize(new Dimension(126, 22));
-		search.setLocation(758, 9);
+		//search.setSize(new Dimension(126, 22));
+		search.setSize(search.getPreferredSize());
+		search.setLocation(690, 10);
 		search.setToolTipText("Enter stock");
 		search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
@@ -111,7 +114,7 @@ public class guiMain {
 						
 						filename = "userProfiles/" + user + ".txt";
 						
-						ArrayList<String> stockList = new ArrayList<String>();
+						stockList = new ArrayList<String>();
 
 						FileReader file;
 						
@@ -151,6 +154,8 @@ public class guiMain {
 						{
 							JOptionPane.showMessageDialog(window, "Stock added!");
 							comboBox.addItem(userText);
+							stockList.add(userText);
+							txtPane.setText("My stocks:\n " + stockList.subList(1, stockList.size()));
 							
 							BufferedWriter out = new BufferedWriter(new FileWriter(filename, true));
 							out.write("\n" + userText);
@@ -177,8 +182,9 @@ public class guiMain {
 		window.getContentPane().add(search);
 		
 		logoutButton = new JButton("Log out");
-		logoutButton.setSize(new Dimension(76, 21));
-		logoutButton.setLocation(237, 10);
+		//logoutButton.setSize(new Dimension(76, 21));
+		logoutButton.setSize(logoutButton.getPreferredSize());
+		logoutButton.setLocation(226, 9);
 		
 		logoutButton.addActionListener(new ActionListener() 
 		{
@@ -191,9 +197,12 @@ public class guiMain {
 		window.getContentPane().add(logoutButton);
 		
 		dowActive = false;
-		dowButton = new JButton("DOW");
-		dowButton.setSize(new Dimension(84, 21));
-		dowButton.setLocation(143, 10);
+		dowButton = new JButton("History");
+		//dowButton.setSize(new Dimension(84, 21));
+		dowButton.setSize(dowButton.getPreferredSize());
+		dowButton.setLocation(136, 9);
+		
+		dowButton.setText("DOW");
 		
 		dowButton.addActionListener(new ActionListener() 
 		{
@@ -244,7 +253,7 @@ public class guiMain {
 					
 					filename = "userProfiles/" + user + ".txt";
 					
-					ArrayList<String> stockList = new ArrayList<String>();
+					stockList = new ArrayList<String>();
 
 					FileReader file;
 					
@@ -288,8 +297,9 @@ public class guiMain {
 		
 		// Search button
 		searchBut = new JButton("Search");
-		searchBut.setSize(new Dimension(76, 22));
-		searchBut.setLocation(894, 9);
+		//searchBut.setSize(new Dimension(76, 29));
+		searchBut.setSize(searchBut.getPreferredSize());
+		searchBut.setLocation(883, 9);
 		searchBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
@@ -311,7 +321,7 @@ public class guiMain {
 						
 						filename = "userProfiles/" + user + ".txt";
 						
-						ArrayList<String> stockList = new ArrayList<String>();
+						stockList = new ArrayList<String>();
 
 						FileReader file;
 						
@@ -351,6 +361,8 @@ public class guiMain {
 						{
 							JOptionPane.showMessageDialog(window, "Stock added!");
 							comboBox.addItem(userText);
+							stockList.add(userText);
+							txtPane.setText("My stocks:\n " + stockList.subList(1, stockList.size()));
 							
 							BufferedWriter out = new BufferedWriter(new FileWriter(filename, true));
 							out.write("\n" + userText);
@@ -396,7 +408,7 @@ public class guiMain {
 
 		JPanel box1 = new JPanel();
 		box1.setBounds(11, 21, 453, 281);
-		box1.setBorder(new TitledBorder(null, "Welcome " + user + "! Todays date is "+day+"/"+month+"/"+year, TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		box1.setBorder(new TitledBorder(null, "Welcome " + user + "! Today's date is "+day+"/"+month+"/"+year, TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		main2.add(box1);
 		box1.setLayout(null);
 		/*
@@ -466,23 +478,21 @@ public class guiMain {
 
 		JPanel tab1 = new JPanel();
 		tabs.addTab(user, null, tab1, null);
-	
 		JPanel insideTab1 = new JPanel();
-
-		insideTab1.setBorder(null);
-		insideTab1.setBounds(0, 0, 910, 496);
+		
+		insideTab1.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		insideTab1.setBounds(0, 0, 900, 496);
 		
 		 Graph gPanel = new Graph(g.createAndShowGui(0,0, closeArray, dateArray, 0));
-		 gPanel.setBorder(new TitledBorder(null, "<insertTitleHere>", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		 //gPanel.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		 //System.out.println(g.createAndShowGui(0,0)); 
-		 gPanel.setBounds(10, 20, 875, 445);
+		// gPanel.setBounds(0, 0, 900, 496);
+		 gPanel.setBounds(10,20,875,445);
 		 insideTab1.add(window.getContentPane().add(gPanel));
 		
-		 JLabel Axis = new JLabel("Price ($)");
-		 Axis.setBounds(59, 0 ,98,14);
+		 JLabel Axis = new JLabel("Price vs. Days");
+		 Axis.setBounds(425, 470 ,106,16);
 		insideTab1.add(Axis);
-		 
-		 
 		
 		JComboBox<String> days = new JComboBox();
 		days.addItem("None");
@@ -490,10 +500,10 @@ public class guiMain {
 		days.addItem("50 day");
 		//days.addItem("100 day");
 		//days.addItem("200 day");
-		days.setBounds(350, 501, 108, 20);
-		JLabel dayLabel = new JLabel("Moving Avg [Short]:");
-		dayLabel.setForeground(new Color(255, 140, 0));
-		dayLabel.setBounds(225,504,130,14);
+		days.setBounds(372, 500, 108, 20);
+		JLabel dayLabel = new JLabel("Moving Average [Short]:");
+		dayLabel.setForeground(Color.ORANGE);
+		dayLabel.setBounds(222,500,150,16);
 		tab1.add(dayLabel);
 		tab1.add(days);
 		
@@ -503,10 +513,10 @@ public class guiMain {
 		//days.addItem("50 day");
 		days2.addItem("100 day");
 		days2.addItem("200 day");
-		days2.setBounds(600, 501, 108, 20);
-		JLabel dayLabel2 = new JLabel("Moving Avg [Long]:");
-		dayLabel2.setForeground(new Color(147, 112, 219));
-		dayLabel2.setBounds(475,504,130,14);
+		days2.setBounds(645, 500, 108, 20);
+		JLabel dayLabel2 = new JLabel("Moving Average [Long]:");
+		dayLabel2.setForeground(Color.MAGENTA);
+		dayLabel2.setBounds(495,500,150,16);
 		tab1.add(dayLabel2);
 		tab1.add(days2);
 		
@@ -515,9 +525,10 @@ public class guiMain {
 		rangeBox.addItem("Past year");
 		rangeBox.addItem("Past 2 years");
 		rangeBox.addItem("Past 5 years");
-		rangeBox.setBounds(100, 501, 108, 20);
+		rangeBox.setBounds(100, 500, 108, 20);
 		JLabel yearLabel = new JLabel("Sample Range:");
-		yearLabel.setBounds(10,504,100,14);
+		yearLabel.setBounds(10,500,95,16);
+		yearLabel.setForeground(new Color(44, 102, 230, 180));
 		tab1.add(yearLabel);
 		tab1.add(rangeBox);
 		
@@ -534,7 +545,7 @@ public class guiMain {
 					{
 						filename = "userProfiles/" + user + ".txt";
 						
-						ArrayList<String> stockList = new ArrayList<String>();
+						stockList = new ArrayList<String>();
 
 						FileReader file;
 						
@@ -576,6 +587,8 @@ public class guiMain {
 						{
 							//JOptionPane.showMessageDialog(window, "Stock added!");
 							//comboBox.addItem(userText);
+							stockList.add((String)comboBox.getSelectedItem());
+							txtPane.setText("My stocks:\n " + stockList.subList(1, stockList.size()));
 							
 							BufferedWriter out = null;
 							try {
@@ -791,14 +804,14 @@ public class guiMain {
 		tab1.add(insideTab1);
 		insideTab1.setLayout(null);
 		
-		JLabel Axis2 = new JLabel("Time (Days)");
+		/*JLabel Axis2 = new JLabel("Time (Days)");
 		Axis2.setBounds(789, 471, 74, 14);
-		insideTab1.add(Axis2);
+		insideTab1.add(Axis2);*/
 
 		tab1.setLayout(null);
 
 		JPanel tab2 = new JPanel();
-		tabs.addTab("Down30", null, tab2, null);
+		tabs.addTab("DOW 30", null, tab2, null);
 		tab2.setLayout(null);
 		
 		JPanel dow30 = new JPanel();
@@ -818,7 +831,7 @@ public class guiMain {
 		
 		filename = "userProfiles/" + user + ".txt";
 		
-		ArrayList<String> stockList = new ArrayList<String>();
+		stockList = new ArrayList<String>();
 
 		FileReader file;
 		
@@ -856,19 +869,60 @@ public class guiMain {
 		
 		
 		
-		JTextPane txtPane = new JTextPane();
+		//JTextPane txtPane = new JTextPane();
 		txtPane.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtPane.setBounds(10, 27, 433, 120);
-		txtPane.setText("Blah\n Stocks: " + stockList.subList(1, stockList.size()));
+		txtPane.setText("My stocks:\n ");
+		
+		if(stockList.size() > 0)
+		{
+			txtPane.setText("My stocks:\n " + stockList.subList(1, stockList.size()));
+		}
 		box1.add(txtPane);
+		
+		JTextPane txtPane2 = new JTextPane();
+		txtPane2.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtPane2.setBounds(10, 150, 433, 120);
+		
+		String stockofDay = (String)comboBox.getSelectedItem();
+		try {
+			
+			
+			if(stockofDay == null)
+			{
+				//SD  = YahooFinance.get("AAPL");
+				
+				txtPane2.setText("No stock selected!\n Current: N/A"
+						+"\n Previous Close: N/A");
+						//+"\n Open: N/A");
+				box1.add(txtPane2);
+			}
+			else
+			{
+				SD= YahooFinance.get(stockofDay);
+				
+				txtPane2.setText(stockofDay + "\n Current: " +SD.getQuote().getPrice() 
+						+"\n Previous Close: " +SD.getQuote().getPreviousClose());
+						//+"\n Open: " +SD.getQuote().getOpen());
+				//box1.add(txtPane2);
+			}
+				
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		box1.add(txtPane2);
+		
 		
 		ActionListener actionListener = new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-					
-				JTextPane txtPane2 = new JTextPane();
-				txtPane2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				txtPane2.setBounds(10, 150, 433, 120);
+
+				//JTextPane txtPane2 = new JTextPane();
+				//txtPane2.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				//txtPane2.setBounds(10, 150, 433, 120);
 			
 			
 					
@@ -876,10 +930,23 @@ public class guiMain {
 					try {
 						
 						
-						if(stockofDay == null){
-							SD  = YahooFinance.get("AAPL");
-						}else{
+						if(stockofDay == null)
+						{
+							//SD  = YahooFinance.get("AAPL");
+							
+							txtPane2.setText("No stock selected!\n Current: N/A"
+									+"\n Previous Close: N/A");
+									//+"\n Open: N/A");
+							box1.add(txtPane2);
+						}
+						else
+						{
 							SD= YahooFinance.get(stockofDay);
+							
+							txtPane2.setText(stockofDay + "\n Current: " +SD.getQuote().getPrice() 
+									+"\n Previous Close: " +SD.getQuote().getPreviousClose());
+									//+"\n Open: " +SD.getQuote().getOpen());
+							//box1.add(txtPane2);
 						}
 							
 						
@@ -891,31 +958,21 @@ public class guiMain {
 					
 				
 			
-			txtPane2.setText("BLAHBLAH \nStock price today: " +SD.getQuote().getPrice() 
-				+"\n Stock closed at: " +SD.getQuote().getPreviousClose()
-				+"\n Stock opened at: " +SD.getQuote().getOpen());
-		box1.add(txtPane2);
+			/*txtPane2.setText("BLAHBLAH \n Current: " +SD.getQuote().getPrice() 
+				+"\n Previous Close: " +SD.getQuote().getPreviousClose());
+				//+"\n Open: " +SD.getQuote().getOpen());
+		box1.add(txtPane2);*/
 			
 			
 			}
 			
 		};
 		comboBox.addActionListener(actionListener);
-		
-		
-		
-		
-		
-		
-	
 
 		
+		//System.out.println();
 		
-
-		
-		System.out.println();
-		
-		comboBox.setBounds(25, 11, 108, 20);
+		comboBox.setBounds(25, 13, 108, 20);
 		window.getContentPane().add(comboBox);
 
 		window.setResizable(false);
