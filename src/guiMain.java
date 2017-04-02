@@ -481,7 +481,8 @@ public class guiMain {
 		 Graph gPanel = new Graph(g.createAndShowGui(0,0, closeArray, dateArray, 0));
 		 gPanel.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		 //System.out.println(g.createAndShowGui(0,0)); 
-		 gPanel.setBounds(0, 0, 900, 496);
+		// gPanel.setBounds(0, 0, 900, 496);
+		 gPanel.setBounds(10,20,875,445);
 		 insideTab1.add(window.getContentPane().add(gPanel));
 		
 		 /*JLabel Axis = new JLabel("Price ($)");
