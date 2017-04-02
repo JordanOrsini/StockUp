@@ -472,22 +472,21 @@ public class guiMain {
 
 		JPanel tab1 = new JPanel();
 		tabs.addTab(user, null, tab1, null);
-	
 		JPanel insideTab1 = new JPanel();
-
-		insideTab1.setBorder(null);
-		insideTab1.setBounds(0, 0, 910, 496);
+		
+		insideTab1.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		insideTab1.setBounds(0, 0, 900, 496);
 		
 		 Graph gPanel = new Graph(g.createAndShowGui(0,0, closeArray, dateArray, 0));
-		 gPanel.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		 //gPanel.setBorder(new TitledBorder(null, "Graph", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		 //System.out.println(g.createAndShowGui(0,0)); 
 		// gPanel.setBounds(0, 0, 900, 496);
 		 gPanel.setBounds(10,20,875,445);
 		 insideTab1.add(window.getContentPane().add(gPanel));
 		
-		 /*JLabel Axis = new JLabel("Price ($)");
-		 Axis.setBounds(59, 0 ,98,14);
-		insideTab1.add(Axis);*/
+		 JLabel Axis = new JLabel("Price vs. Days");
+		 Axis.setBounds(425, 470 ,106,16);
+		insideTab1.add(Axis);
 		
 		JComboBox<String> days = new JComboBox();
 		days.addItem("None");

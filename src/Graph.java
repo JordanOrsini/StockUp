@@ -151,7 +151,7 @@ public class Graph extends JPanel {
                 Double yLabel = ((int) ((getMinScore() + (getMaxScore() - getMinScore()) * ((i * 1.0) / numberYDivisions)) * 100)) / 100.0;
                 FontMetrics metrics = g2.getFontMetrics();
                 int labelWidth = metrics.stringWidth(df.format(yLabel));
-                g2.drawString("$"+ df.format(yLabel), x0 - labelWidth - 15, y0 + (metrics.getHeight() / 2) - 3);
+                g2.drawString("$"+ yLabel.intValue()/*df.format(yLabel)*/, x0 - labelWidth - 7, y0 + (metrics.getHeight() / 2) - 3);
             }
             g2.drawLine(x0, y0, x1, y1);
         }
