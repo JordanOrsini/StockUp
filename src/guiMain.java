@@ -435,7 +435,7 @@ public class guiMain {
 		box3.setLayout(null);
 		
 		JTextPane txtpane2 = new JTextPane();
-		txtpane2.setText("AEG \n dfeqwf");
+		txtpane2.setText("<insert Instructions to be done at later time \nk? \nk.");
 		txtpane2.setBounds(10, 26, 433, 191);
 		box3.add(txtpane2);
 		
@@ -818,11 +818,10 @@ public class guiMain {
 		dow30.setBounds(10, 11, 895, 518);
 		tab2.add(dow30);
 		
-		JLabel dow30Img = new JLabel("New label");
+		JLabel dow30Img = new JLabel();
 		path = "img/finalLogo.jpg";
 		ImageIcon img2 = new ImageIcon(path);
-		 dow30Img.setIcon(img2);
-		 dow30Img.setBounds(0,0,20,20);
+		dow30Img.setIcon(img2);
 		dow30.add(dow30Img);
 		
 		
@@ -869,10 +868,10 @@ public class guiMain {
 		
 		
 		
-		//JTextPane txtPane = new JTextPane();
-		txtPane.setFont(new Font("Tahoma", Font.PLAIN, 12));
+	
+		txtPane.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		txtPane.setBounds(10, 27, 433, 120);
-		txtPane.setText("My stocks:\n ");
+		txtPane.setText("My stocks:\n");
 		
 		if(stockList.size() > 0)
 		{
@@ -881,7 +880,7 @@ public class guiMain {
 		box1.add(txtPane);
 		
 		JTextPane txtPane2 = new JTextPane();
-		txtPane2.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtPane2.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		txtPane2.setBounds(10, 150, 433, 120);
 		
 		String stockofDay = (String)comboBox.getSelectedItem();
@@ -890,21 +889,22 @@ public class guiMain {
 			
 			if(stockofDay == null)
 			{
-				//SD  = YahooFinance.get("AAPL");
 				
-				txtPane2.setText("No stock selected!\n Current: N/A"
-						+"\n Previous Close: N/A");
-						//+"\n Open: N/A");
+				
+				txtPane2.setText("No stock selected!\nCurrent: N/A"
+						+"\nPrevious Close: N/A");
+						
 				box1.add(txtPane2);
 			}
 			else
 			{
 				SD= YahooFinance.get(stockofDay);
 				
-				txtPane2.setText(stockofDay + "\n Current: " +SD.getQuote().getPrice() 
-						+"\n Previous Close: " +SD.getQuote().getPreviousClose());
-						//+"\n Open: " +SD.getQuote().getOpen());
-				//box1.add(txtPane2);
+				txtPane2.setText(stockofDay 
+						+"\n------------------------------------"
+						+ "\nCurrent Price: " +SD.getQuote().getPrice() 
+						+"\nPrevious Close: " +SD.getQuote().getPreviousClose());
+					
 			}
 				
 			
@@ -920,11 +920,7 @@ public class guiMain {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 
-				//JTextPane txtPane2 = new JTextPane();
-				//txtPane2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				//txtPane2.setBounds(10, 150, 433, 120);
-			
-			
+	
 					
 					String stockofDay = (String)comboBox.getSelectedItem();
 					try {
@@ -934,19 +930,20 @@ public class guiMain {
 						{
 							//SD  = YahooFinance.get("AAPL");
 							
-							txtPane2.setText("No stock selected!\n Current: N/A"
-									+"\n Previous Close: N/A");
-									//+"\n Open: N/A");
+							txtPane2.setText("No stock selected!\nCurrent: N/A"
+									+"\nPrevious Close: N/A");
+									
 							box1.add(txtPane2);
 						}
 						else
 						{
 							SD= YahooFinance.get(stockofDay);
 							
-							txtPane2.setText(stockofDay + "\n Current: " +SD.getQuote().getPrice() 
-									+"\n Previous Close: " +SD.getQuote().getPreviousClose());
-									//+"\n Open: " +SD.getQuote().getOpen());
-							//box1.add(txtPane2);
+							txtPane2.setText(stockofDay
+									+"\n------------------------------------"
+									+ "\nCurrent Price: " +SD.getQuote().getPrice() 
+									+"\nPrevious Close: " +SD.getQuote().getPreviousClose());
+								
 						}
 							
 						
@@ -955,14 +952,7 @@ public class guiMain {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
-				
-			
-			/*txtPane2.setText("BLAHBLAH \n Current: " +SD.getQuote().getPrice() 
-				+"\n Previous Close: " +SD.getQuote().getPreviousClose());
-				//+"\n Open: " +SD.getQuote().getOpen());
-		box1.add(txtPane2);*/
-			
+	
 			
 			}
 			
