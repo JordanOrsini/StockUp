@@ -154,8 +154,12 @@ public class guiMain {
 						{
 							JOptionPane.showMessageDialog(window, "Stock added!");
 							comboBox.addItem(userText);
+							if(stockList.size() == 0)
+							{
+								stockList.add("");
+							}
 							stockList.add(userText);
-							txtPane.setText("My stocks:\n " + stockList.subList(1, stockList.size()));
+							txtPane.setText("My stocks:\n------------------------------------\n" + stockList.subList(1, stockList.size()));
 							
 							BufferedWriter out = new BufferedWriter(new FileWriter(filename, true));
 							out.write("\n" + userText);
@@ -202,7 +206,7 @@ public class guiMain {
 		dowButton.setSize(dowButton.getPreferredSize());
 		dowButton.setLocation(136, 9);
 		
-		dowButton.setText("DOW");
+		dowButton.setText("DOW 30");
 		
 		dowButton.addActionListener(new ActionListener() 
 		{
@@ -248,7 +252,7 @@ public class guiMain {
 				}
 				else
 				{
-					dowButton.setText("DOW");
+					dowButton.setText("DOW 30");
 					comboBox.removeAllItems();
 					
 					filename = "userProfiles/" + user + ".txt";
@@ -361,8 +365,12 @@ public class guiMain {
 						{
 							JOptionPane.showMessageDialog(window, "Stock added!");
 							comboBox.addItem(userText);
+							if(stockList.size() == 0)
+							{
+								stockList.add("");
+							}
 							stockList.add(userText);
-							txtPane.setText("My stocks:\n " + stockList.subList(1, stockList.size()));
+							txtPane.setText("My stocks:\n------------------------------------\n" + stockList.subList(1, stockList.size()));
 							
 							BufferedWriter out = new BufferedWriter(new FileWriter(filename, true));
 							out.write("\n" + userText);
@@ -435,7 +443,7 @@ public class guiMain {
 		box3.setLayout(null);
 		
 		JTextPane txtpane2 = new JTextPane();
-		txtpane2.setText("<insert Instructions to be done at later time \nk? \nk.");
+		txtpane2.setText("<insert instructions to be done at later time> \nk? \nk.\n:      ^)\n:              ^)\n praise the sun");
 		txtpane2.setBounds(10, 26, 433, 191);
 		box3.add(txtpane2);
 		
@@ -587,8 +595,12 @@ public class guiMain {
 						{
 							//JOptionPane.showMessageDialog(window, "Stock added!");
 							//comboBox.addItem(userText);
+							if(stockList.size() == 0)
+							{
+								stockList.add("");
+							}
 							stockList.add((String)comboBox.getSelectedItem());
-							txtPane.setText("My stocks:\n " + stockList.subList(1, stockList.size()));
+							txtPane.setText("My stocks:\n------------------------------------\n" + stockList.subList(1, stockList.size()));
 							
 							BufferedWriter out = null;
 							try {
@@ -815,7 +827,7 @@ public class guiMain {
 		tab2.setLayout(null);
 		
 		JPanel dow30 = new JPanel();
-		dow30.setBounds(10, 11, 895, 518);
+		dow30.setBounds(10, 11, 880, 518);
 		tab2.add(dow30);
 		
 		JLabel dow30Img = new JLabel();
@@ -871,11 +883,11 @@ public class guiMain {
 	
 		txtPane.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		txtPane.setBounds(10, 27, 433, 120);
-		txtPane.setText("My stocks:\n");
+		txtPane.setText("My stocks:\n------------------------------------\n");
 		
 		if(stockList.size() > 0)
 		{
-			txtPane.setText("My stocks:\n " + stockList.subList(1, stockList.size()));
+			txtPane.setText("My stocks:\n------------------------------------\n" + stockList.subList(1, stockList.size()));
 		}
 		box1.add(txtPane);
 		
@@ -891,7 +903,8 @@ public class guiMain {
 			{
 				
 				
-				txtPane2.setText("No stock selected!\nCurrent: N/A"
+				txtPane2.setText("No stock selected!\n------------------------------------\n"
+						+ "Current Price: N/A"
 						+"\nPrevious Close: N/A");
 						
 				box1.add(txtPane2);
@@ -902,8 +915,8 @@ public class guiMain {
 				
 				txtPane2.setText(stockofDay 
 						+"\n------------------------------------"
-						+ "\nCurrent Price: " +SD.getQuote().getPrice() 
-						+"\nPrevious Close: " +SD.getQuote().getPreviousClose());
+						+ "\nCurrent Price: $" +SD.getQuote().getPrice() 
+						+"\nPrevious Close: $" +SD.getQuote().getPreviousClose());
 					
 			}
 				
@@ -930,7 +943,8 @@ public class guiMain {
 						{
 							//SD  = YahooFinance.get("AAPL");
 							
-							txtPane2.setText("No stock selected!\nCurrent: N/A"
+							txtPane2.setText("No stock selected!\n------------------------------------\n"
+									+ "Current Price: N/A"
 									+"\nPrevious Close: N/A");
 									
 							box1.add(txtPane2);
@@ -941,8 +955,8 @@ public class guiMain {
 							
 							txtPane2.setText(stockofDay
 									+"\n------------------------------------"
-									+ "\nCurrent Price: " +SD.getQuote().getPrice() 
-									+"\nPrevious Close: " +SD.getQuote().getPreviousClose());
+									+ "\nCurrent Price: $" +SD.getQuote().getPrice() 
+									+"\nPrevious Close: $" +SD.getQuote().getPreviousClose());
 								
 						}
 							
