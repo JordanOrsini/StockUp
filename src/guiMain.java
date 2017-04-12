@@ -448,7 +448,7 @@ public class guiMain {
 				+ "3) Toggle between personal and DOW 30 stocks by pressing the \n    button beside the top-left dropdown menu.\n\n"
 				+ "4) Adjust the range or add/remove moving averages through the \n    dropdown menus located beneath the graph.\n\n"
 				+ "5) Buy/sell indicators will automatically be displayed if multiple \n    moving averages are present.");
-		txtpane2.setBounds(10, 26, 433, 191);
+		txtpane2.setBounds(10, 23, 433, 196);
 		box3.add(txtpane2);
 		
 		JPanel main1 = new JPanel();
