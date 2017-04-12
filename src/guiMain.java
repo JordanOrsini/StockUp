@@ -443,7 +443,11 @@ public class guiMain {
 		box3.setLayout(null);
 		
 		JTextPane txtpane2 = new JTextPane();
-		txtpane2.setText("<insert instructions to be done at later time> \nk? \nk.\n:      ^)\n:              ^)\n praise the sun");
+		txtpane2.setText("1) Graph a stock by selecting it from the top-left dropdown menu.\n\n"
+				+ "2) Add a stock by searching for it using the search field.\n\n"
+				+ "3) Toggle between personal and DOW 30 stocks by pressing the \n    button beside the top-left dropdown menu.\n\n"
+				+ "4) Adjust the range or add/remove moving averages through the \n    dropdown menus located beneath the graph.\n\n"
+				+ "5) Buy/sell indicators will automatically be displayed if multiple \n    moving averages are present.");
 		txtpane2.setBounds(10, 26, 433, 191);
 		box3.add(txtpane2);
 		
